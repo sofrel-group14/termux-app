@@ -118,6 +118,10 @@ public class KeyHandlerTest extends TestCase {
 		// Back tab.
 		assertKeysEquals("\033[Z", KeyHandler.getCode(KeyEvent.KEYCODE_TAB, KeyHandler.KEYMOD_SHIFT, false, false));
 
+		//AXEL
+		assertKeysEquals("\015", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_CENTER, 0, false, false));
+		assertKeysEquals("\033\r", KeyHandler.getCode(KeyEvent.KEYCODE_ENTER, 0x80000000, false, false));
+
 		// Arrow keys (up/down/right/left):
 		assertKeysEquals("\033[A", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_UP, 0, false, false));
 		assertKeysEquals("\033[B", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_DOWN, 0, false, false));

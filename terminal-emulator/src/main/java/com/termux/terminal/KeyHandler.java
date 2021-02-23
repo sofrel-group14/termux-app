@@ -133,61 +133,60 @@ public final class KeyHandler {
 
     static String getCodeFromTermcap(String termcap, boolean cursorKeysApplication, boolean keypadApplication) {
 
-        System.err.println("TEST_COVERAGE_getCodeFromTermcap:1");
-
         Integer keyCodeAndMod = TERMCAP_TO_KEYCODE.get(termcap);
         if (keyCodeAndMod == null) {
-            System.err.println("TEST_COVERAGE_getCodeFromTermcap:2");
             return null;
         }
         int keyCode = keyCodeAndMod;
         int keyMod = 0;
         if ((keyCode & KEYMOD_SHIFT) != 0) {
-            System.err.println("TEST_COVERAGE_getCodeFromTermcap:3");
             keyMod |= KEYMOD_SHIFT;
             keyCode &= ~KEYMOD_SHIFT;
         }
         if ((keyCode & KEYMOD_CTRL) != 0) {
-            System.err.println("TEST_COVERAGE_getCodeFromTermcap:4");
             keyMod |= KEYMOD_CTRL;
             keyCode &= ~KEYMOD_CTRL;
         }
         if ((keyCode & KEYMOD_ALT) != 0) {
-            System.err.println("TEST_COVERAGE_getCodeFromTermcap:5");
             keyMod |= KEYMOD_ALT;
             keyCode &= ~KEYMOD_ALT;
         }
         if ((keyCode & KEYMOD_NUM_LOCK) != 0) {
-            System.err.println("TEST_COVERAGE_getCodeFromTermcap:6");
             keyMod |= KEYMOD_NUM_LOCK;
             keyCode &= ~KEYMOD_NUM_LOCK;
         }
-
-        System.err.println("TEST_COVERAGE_getCodeFromTermcap:7");
         return getCode(keyCode, keyMod, cursorKeysApplication, keypadApplication);
     }
 
     public static String getCode(int keyCode, int keyMode, boolean cursorApp, boolean keypadApplication) {
+        System.err.println("TEST_COVERAGE_GETCODE:1");
         boolean numLockOn = (keyMode & KEYMOD_NUM_LOCK) != 0;
         keyMode &= ~KEYMOD_NUM_LOCK;
         switch (keyCode) {
             case KEYCODE_DPAD_CENTER:
+                System.err.println("TEST_COVERAGE_GETCODE:2");
                 return "\015";
 
             case KEYCODE_DPAD_UP:
+                System.err.println("TEST_COVERAGE_GETCODE:3");
                 return (keyMode == 0) ? (cursorApp ? "\033OA" : "\033[A") : transformForModifiers("\033[1", keyMode, 'A');
             case KEYCODE_DPAD_DOWN:
+                System.err.println("TEST_COVERAGE_GETCODE:4");
                 return (keyMode == 0) ? (cursorApp ? "\033OB" : "\033[B") : transformForModifiers("\033[1", keyMode, 'B');
             case KEYCODE_DPAD_RIGHT:
+                System.err.println("TEST_COVERAGE_GETCODE:5");
                 return (keyMode == 0) ? (cursorApp ? "\033OC" : "\033[C") : transformForModifiers("\033[1", keyMode, 'C');
             case KEYCODE_DPAD_LEFT:
+                System.err.println("TEST_COVERAGE_GETCODE:6");
                 return (keyMode == 0) ? (cursorApp ? "\033OD" : "\033[D") : transformForModifiers("\033[1", keyMode, 'D');
 
             case KEYCODE_MOVE_HOME:
+                System.err.println("TEST_COVERAGE_GETCODE:7");
                 // Note that KEYCODE_HOME is handled by the system and never delivered to applications.
                 // On a Logitech k810 keyboard KEYCODE_MOVE_HOME is sent by FN+LeftArrow.
                 return (keyMode == 0) ? (cursorApp ? "\033OH" : "\033[H") : transformForModifiers("\033[1", keyMode, 'H');
             case KEYCODE_MOVE_END:
+                System.err.println("TEST_COVERAGE_GETCODE:8");
                 return (keyMode == 0) ? (cursorApp ? "\033OF" : "\033[F") : transformForModifiers("\033[1", keyMode, 'F');
 
             // An xterm can send function keys F1 to F4 in two modes: vt100 compatible or
@@ -201,68 +200,100 @@ public final class KeyHandler {
             // <Home> t_kh <Esc>[7~ <xHome> <Esc>OH *<xHome>-xterm*
             // <End> t_@7 <Esc>[4~ <xEnd> <Esc>OF *<xEnd>-xterm*
             case KEYCODE_F1:
+                System.err.println("TEST_COVERAGE_GETCODE:9");
                 return (keyMode == 0) ? "\033OP" : transformForModifiers("\033[1", keyMode, 'P');
             case KEYCODE_F2:
+                System.err.println("TEST_COVERAGE_GETCODE:10");
                 return (keyMode == 0) ? "\033OQ" : transformForModifiers("\033[1", keyMode, 'Q');
             case KEYCODE_F3:
+                System.err.println("TEST_COVERAGE_GETCODE:11");
                 return (keyMode == 0) ? "\033OR" : transformForModifiers("\033[1", keyMode, 'R');
             case KEYCODE_F4:
+                System.err.println("TEST_COVERAGE_GETCODE:12");
                 return (keyMode == 0) ? "\033OS" : transformForModifiers("\033[1", keyMode, 'S');
             case KEYCODE_F5:
+                System.err.println("TEST_COVERAGE_GETCODE:13");
                 return transformForModifiers("\033[15", keyMode, '~');
             case KEYCODE_F6:
+                System.err.println("TEST_COVERAGE_GETCODE:14");
                 return transformForModifiers("\033[17", keyMode, '~');
             case KEYCODE_F7:
+                System.err.println("TEST_COVERAGE_GETCODE:15");
                 return transformForModifiers("\033[18", keyMode, '~');
             case KEYCODE_F8:
+                System.err.println("TEST_COVERAGE_GETCODE:16");
                 return transformForModifiers("\033[19", keyMode, '~');
             case KEYCODE_F9:
+                System.err.println("TEST_COVERAGE_GETCODE:17");
                 return transformForModifiers("\033[20", keyMode, '~');
             case KEYCODE_F10:
+                System.err.println("TEST_COVERAGE_GETCODE:18");
                 return transformForModifiers("\033[21", keyMode, '~');
             case KEYCODE_F11:
+                System.err.println("TEST_COVERAGE_GETCODE:19");
                 return transformForModifiers("\033[23", keyMode, '~');
             case KEYCODE_F12:
+                System.err.println("TEST_COVERAGE_GETCODE:20");
                 return transformForModifiers("\033[24", keyMode, '~');
 
             case KEYCODE_SYSRQ:
+                System.err.println("TEST_COVERAGE_GETCODE:21");
                 return "\033[32~"; // Sys Request / Print
             // Is this Scroll lock? case Cancel: return "\033[33~";
             case KEYCODE_BREAK:
+                System.err.println("TEST_COVERAGE_GETCODE:22");
                 return "\033[34~"; // Pause/Break
 
             case KEYCODE_ESCAPE:
             case KEYCODE_BACK:
+                System.err.println("TEST_COVERAGE_GETCODE:23");
                 return "\033";
 
             case KEYCODE_INSERT:
+                System.err.println("TEST_COVERAGE_GETCODE:24");
                 return transformForModifiers("\033[2", keyMode, '~');
             case KEYCODE_FORWARD_DEL:
+                System.err.println("TEST_COVERAGE_GETCODE:25");
                 return transformForModifiers("\033[3", keyMode, '~');
 
             case KEYCODE_PAGE_UP:
+                System.err.println("TEST_COVERAGE_GETCODE:26");
                 return "\033[5~";
             case KEYCODE_PAGE_DOWN:
+                System.err.println("TEST_COVERAGE_GETCODE:27");
                 return "\033[6~";
             case KEYCODE_DEL:
+                System.err.println("TEST_COVERAGE_GETCODE:28");
                 String prefix = ((keyMode & KEYMOD_ALT) == 0) ? "" : "\033";
                 // Just do what xterm and gnome-terminal does:
                 return prefix + (((keyMode & KEYMOD_CTRL) == 0) ? "\u007F" : "\u0008");
             case KEYCODE_NUM_LOCK:
+                System.err.println("TEST_COVERAGE_GETCODE:29");
                 if (keypadApplication) {
+                    System.err.println("TEST_COVERAGE_GETCODE:30");
                     return "\033OP";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:31");
                     return null;
                 }
             case KEYCODE_SPACE:
+                System.err.println("TEST_COVERAGE_GETCODE:32");
                 // If ctrl is not down, return null so that it goes through normal input processing (which may e.g. cause a
                 // combining accent to be written):
                 return ((keyMode & KEYMOD_CTRL) == 0) ? null : "\0";
             case KEYCODE_TAB:
+                System.err.println("TEST_COVERAGE_GETCODE:33");
                 // This is back-tab when shifted:
                 return (keyMode & KEYMOD_SHIFT) == 0 ? "\011" : "\033[Z";
             case KEYCODE_ENTER:
-                return ((keyMode & KEYMOD_ALT) == 0) ? "\r" : "\033\r";
+                if ((keyMode & KEYMOD_ALT) == 0) {
+                    System.err.println("TEST_COVERAGE_GETCODE:34");
+                    return "\r";
+                } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:35");
+                    return "\033\r";
+                }
+                // return ((keyMode & KEYMOD_ALT) == 0) ? "\r" : "\033\r";
 
             case KEYCODE_NUMPAD_ENTER:
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'M') : "\n";
