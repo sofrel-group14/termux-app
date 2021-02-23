@@ -1,5 +1,7 @@
 package com.termux.terminal;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -130,26 +132,38 @@ public final class KeyHandler {
     }
 
     static String getCodeFromTermcap(String termcap, boolean cursorKeysApplication, boolean keypadApplication) {
+
+        System.err.println("TEST_COVERAGE_getCodeFromTermcap:1");
+
         Integer keyCodeAndMod = TERMCAP_TO_KEYCODE.get(termcap);
-        if (keyCodeAndMod == null) return null;
+        if (keyCodeAndMod == null) {
+            System.err.println("TEST_COVERAGE_getCodeFromTermcap:2");
+            return null;
+        }
         int keyCode = keyCodeAndMod;
         int keyMod = 0;
         if ((keyCode & KEYMOD_SHIFT) != 0) {
+            System.err.println("TEST_COVERAGE_getCodeFromTermcap:3");
             keyMod |= KEYMOD_SHIFT;
             keyCode &= ~KEYMOD_SHIFT;
         }
         if ((keyCode & KEYMOD_CTRL) != 0) {
+            System.err.println("TEST_COVERAGE_getCodeFromTermcap:4");
             keyMod |= KEYMOD_CTRL;
             keyCode &= ~KEYMOD_CTRL;
         }
         if ((keyCode & KEYMOD_ALT) != 0) {
+            System.err.println("TEST_COVERAGE_getCodeFromTermcap:5");
             keyMod |= KEYMOD_ALT;
             keyCode &= ~KEYMOD_ALT;
         }
         if ((keyCode & KEYMOD_NUM_LOCK) != 0) {
+            System.err.println("TEST_COVERAGE_getCodeFromTermcap:6");
             keyMod |= KEYMOD_NUM_LOCK;
             keyCode &= ~KEYMOD_NUM_LOCK;
         }
+
+        System.err.println("TEST_COVERAGE_getCodeFromTermcap:7");
         return getCode(keyCode, keyMod, cursorKeysApplication, keypadApplication);
     }
 
