@@ -86,7 +86,7 @@ We chose 5 of those to manually calculate CCN, with the following results (with 
 | TermuxActivity.java:onContextItemSelected  	| [9](onContextItemSelected.png)  | ??           |  20  |
 | TermuxViewClient.java:onKeyDown   			| 24           | ??           |  24   |
 
-### Remastered in HD edition
+### After Cyrille's input
 | Function           				  			| First calc   | Second calc  | lizard |
 | --------------------------------------------- |:------------:| ------------:| ------:|
 | TermuxOpenReceiver.java:onReceive  		 	| 17           | 17           | 17     |
