@@ -1,9 +1,5 @@
 # Report for assignment 3
 
-This is a template for your report. You are free to modify it as needed.
-It is not required to use markdown for your report either, but the report
-has to be delivered in a standard, cross-platform format.
-
 ## Project
 
 Name: Termux app
@@ -18,13 +14,15 @@ NCLOC (by lizard): 10646 (10475 if considering only Java)
 
 ## Onboarding experience
 
+There was pretty much no documentation available at all, so we had to figure it out ourselves. These are the steps required to get it to run.
+
 1. Install and set up the correct SDK and NDK in IntelliJ (note: SDK version 28, and NDK version 21.1.6352462).
-    - The SDK version was also not documented, we had to find the `targetSdkVersion` in `gradle.properties`.
-2. Create a `local.properties`-file with SDK location (see example below). This was automatically generated the first time (i.e. when cloning original, but had to be done manually when cloning the forked repo).
-3. Change from `4.1.1` to `4.0.2`. in `build.gradle` (`classpath 'com.android.tools.build:gradle:4.0.2'`)
-4. Change from `4.4` to `4.5` in `build.gradle (:app)` (`testImplementation 'org.robolectric:robolectric:4.5'`)
-5. Set up the emulator (by choosing a Device/AVD).
-6. To run the tests, run `./gradlew test` (we had to find this in the Github Actions; it was not properly documented).
+    - The SDK version was not documented, we had to find the `targetSdkVersion` in `gradle.properties`.
+2. Create a `local.properties`-file with SDK location (ex: `sdk.dir=/Users/name/Library/Android/sdk`). This was automatically generated the first time (when cloning the original repo), but had to be done manually when cloning the forked repo.
+3. Change Gradle version from `4.1.1` to `4.0.2`. in `build.gradle` (`classpath 'com.android.tools.build:gradle:4.0.2'`)
+4. Change Robolectric version from `4.4` to `4.5` in `build.gradle (:app)` (`testImplementation 'org.robolectric:robolectric:4.5'`)
+5. Set up the phone-emulator (by choosing a Device/AVD in IntelliJ).
+6. To run the tests, run `./gradlew test` (also not documented; we had to find this in the Github Actions).
 
 **NOTE:** You cannot store NDK-files in paths containing spaces or parentheses.</br>
 **NOTE:** You cannot store the project in paths containing spaces
