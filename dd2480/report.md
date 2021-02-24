@@ -18,13 +18,16 @@ NCLOC (by lizard): 10646 (10475 if considering only Java)
 
 ## Onboarding experience
 
-Did it build and run as documented?
-    
-See the assignment for details; if everything works out of the box,
-there is no need to write much here. If the first project(s) you picked
-ended up being unsuitable, you can describe the "onboarding experience"
-for each project, along with reason(s) why you changed to a different one.
+1. Install and set up the correct SDK and NDK in IntelliJ (note: SDK version 28, and NDK version 21.1.6352462).
+    - The SDK version was also not documented, we had to find the `targetSdkVersion` in `gradle.properties`.
+2. Create a `local.properties`-file with SDK location (see example below). This was automatically generated the first time (i.e. when cloning original, but had to be done manually when cloning the forked repo).
+3. Change from `4.1.1` to `4.0.2`. in `build.gradle` (`classpath 'com.android.tools.build:gradle:4.0.2'`)
+4. Change from `4.4` to `4.5` in `build.gradle (:app)` (`testImplementation 'org.robolectric:robolectric:4.5'`)
+5. Set up the emulator (by choosing a Device/AVD).
+6. To run the tests, run `./gradlew test` (we had to find this in the Github Actions; it was not properly documented).
 
+**NOTE:** You cannot store NDK-files in paths containing spaces or parentheses.</br>
+**NOTE:** You cannot store the project in paths containing spaces
 
 ## Complexity
 
