@@ -296,93 +296,122 @@ public final class KeyHandler {
                 // return ((keyMode & KEYMOD_ALT) == 0) ? "\r" : "\033\r";
 
             case KEYCODE_NUMPAD_ENTER:
+                System.err.println("TEST_COVERAGE_GETCODE:36");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'M') : "\n";
             case KEYCODE_NUMPAD_MULTIPLY:
+                System.err.println("TEST_COVERAGE_GETCODE:37");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'j') : "*";
             case KEYCODE_NUMPAD_ADD:
+                System.err.println("TEST_COVERAGE_GETCODE:38");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'k') : "+";
             case KEYCODE_NUMPAD_COMMA:
+                System.err.println("TEST_COVERAGE_GETCODE:39");
                 return ",";
             case KEYCODE_NUMPAD_DOT:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:40");
                     return keypadApplication ? "\033On" : ".";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:41");
                     // DELETE
                     return transformForModifiers("\033[3", keyMode, '~');
                 }
             case KEYCODE_NUMPAD_SUBTRACT:
+                System.err.println("TEST_COVERAGE_GETCODE:42");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'm') : "-";
             case KEYCODE_NUMPAD_DIVIDE:
+                System.err.println("TEST_COVERAGE_GETCODE:43");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'o') : "/";
             case KEYCODE_NUMPAD_0:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:44");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'p') : "0";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:45");
                     // INSERT
                     return transformForModifiers("\033[2", keyMode, '~');
                 }
             case KEYCODE_NUMPAD_1:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:46");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'q') : "1";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:47");
                     // END
                     return (keyMode == 0) ? (cursorApp ? "\033OF" : "\033[F") : transformForModifiers("\033[1", keyMode, 'F');
                 }
             case KEYCODE_NUMPAD_2:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:48");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'r') : "2";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:49");
                     // DOWN
                     return (keyMode == 0) ? (cursorApp ? "\033OB" : "\033[B") : transformForModifiers("\033[1", keyMode, 'B');
                 }
             case KEYCODE_NUMPAD_3:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:50");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 's') : "3";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:51");
                     // PGDN
                     return "\033[6~";
                 }
             case KEYCODE_NUMPAD_4:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:52");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 't') : "4";
                 } else {
                     // LEFT
+                    System.err.println("TEST_COVERAGE_GETCODE:53");
                     return (keyMode == 0) ? (cursorApp ? "\033OD" : "\033[D") : transformForModifiers("\033[1", keyMode, 'D');
                 }
             case KEYCODE_NUMPAD_5:
+                System.err.println("TEST_COVERAGE_GETCODE:54");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'u') : "5";
             case KEYCODE_NUMPAD_6:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:55");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'v') : "6";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:56");
                     // RIGHT
                     return (keyMode == 0) ? (cursorApp ? "\033OC" : "\033[C") : transformForModifiers("\033[1", keyMode, 'C');
                 }
             case KEYCODE_NUMPAD_7:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:57");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'w') : "7";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:58");
                     // HOME
                     return (keyMode == 0) ? (cursorApp ? "\033OH" : "\033[H") : transformForModifiers("\033[1", keyMode, 'H');
                 }
             case KEYCODE_NUMPAD_8:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:59");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'x') : "8";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:60");
                     // UP
                     return (keyMode == 0) ? (cursorApp ? "\033OA" : "\033[A") : transformForModifiers("\033[1", keyMode, 'A');
                 }
             case KEYCODE_NUMPAD_9:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:61");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'y') : "9";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:62");
                     // PGUP
                     return "\033[5~";
                 }
             case KEYCODE_NUMPAD_EQUALS:
+                System.err.println("TEST_COVERAGE_GETCODE:63");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'X') : "=";
         }
 
+        System.err.println("TEST_COVERAGE_GETCODE:64");
         return null;
     }
 
