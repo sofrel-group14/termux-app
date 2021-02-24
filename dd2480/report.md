@@ -82,7 +82,7 @@ We chose 5 of those to manually calculate CCN, with the following results (with 
 | --------------------------------------------- |:------------:| ------------:| ------:|
 | TermuxOpenReceiver.java:onReceive  		 	| [13](onReceive_calc1.png) | ??           | 17  |
 | TerminalEmulator.java:processByte   		 	| [10](processBytes.jpg) | [21](processBytes2.jpg) | 21     |
-| TerminalEmulator.java:selectGraphicRendition  | [40](selectGraphicRendtion-CFG.jpg)  | ??           | 51   |
+| TerminalEmulator.java:selectGraphicRendition  | 50  | ??           | 51   |
 | TermuxActivity.java:onContextItemSelected  	| [9](onContextItemSelected.png)  | ??           |  20  |
 | TermuxViewClient.java:onKeyDown   			| 24           | ??           |  24   |
 
