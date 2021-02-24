@@ -126,7 +126,11 @@ public class KeyHandlerTest extends TestCase {
         assertKeysEquals("-", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_SUBTRACT, 0, false, false));
         assertKeysEquals("/", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_DIVIDE, 0, false, false));
         assertKeysEquals("=", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_EQUALS, 0, false, false));
-        assertKeysEquals(null, KeyHandler.getCode(-1, 0, false, false));
+        //assertKeysEquals(null, KeyHandler.getCode(-1, 0, false, false));
+
+        //ANDREAS
+        assertKeysEquals("\033[32~", KeyHandler.getCode(KeyEvent.KEYCODE_SYSRQ, 0, false, false));
+        assertKeysEquals("\033[34~", KeyHandler.getCode(KeyEvent.KEYCODE_BREAK, 0, false, false));
 
 		// Arrow keys (up/down/right/left):
 		assertKeysEquals("\033[A", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_UP, 0, false, false));
