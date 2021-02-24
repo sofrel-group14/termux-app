@@ -110,6 +110,101 @@ git diff ...
 
 ## Coverage
 
+[Python script](https://github.com/sofrel-group14/termux-app/blob/andreas-branch-coverage/cov.py)
+
+```python
+"""
+USAGE:
+1) Add ID to each branch in the function, and execute:
+	System.err.println("TEST_COVERAGE_getCodeFromTermcap:1");
+    
+    for each branch (ID = 1 in example above).
+
+2) Run tests with -i flag to get error printouts, save output to file.
+    $ ./gradlew test -i &> testlog.txt
+
+3) Grep the file to get relevant lines about test coverage, and save them to file.
+
+    $ cat testlog.txt | grep -e "TEST_COVERAGE_getCodeFromTermcap" > coverage.txt
+
+4) Run this file to get coverage printouts.
+    $ python3 cov.py
+"""
+```
+
+#### Example input:
+```
+coverage.txt
+TEST_COVERAGE_getSelectedText:41
+TEST_COVERAGE_getSelectedText:42
+TEST_COVERAGE_getSelectedText:43
+TEST_COVERAGE_getSelectedText:6
+TEST_COVERAGE_getSelectedText:8
+TEST_COVERAGE_getSelectedText:12
+```
+
+#### Example output:
+```
+Andreass-MBP:termux-app andreaskarrby$ python3 cov.py 
+Branch counts:
+1: 56
+2: 0
+3: 56
+4: 36
+5: 20
+6: 136
+7: 56
+8: 80
+9: 56
+10: 36
+11: 20
+12: 80
+13: 16
+14: 120
+15: 0
+16: 22
+17: 18
+18: 4
+19: 8
+20: 8
+21: 0
+22: 114
+23: 426
+24: 144
+25: 282
+26: 98
+27: 38
+28: 0
+29: 0
+30: 0
+31: 0
+32: 0
+33: 0
+34: 0
+35: 0
+36: 0
+37: 0
+38: 0
+39: 0
+40: 114
+41: 106
+42: 60
+43: 60
+44: 0
+45: 46
+46: 2
+47: 2
+48: 2
+49: 0
+50: 0
+51: 6
+52: 22
+Manually instrumented function: getSelectedText
+Branches not taken (IDs): 2, 15, 21, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 44, 49, 50, 
+ 
+Out of 52 branches, 34 were taken (~65%)
+```
+
 ### Tools
 
 Document your experience in using a "new"/different coverage tool.
