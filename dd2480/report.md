@@ -118,16 +118,16 @@ For an example of the instrumented code, see getSelectedText on line 60 [here](h
 USAGE:
 1) Add ID to each branch in the function, and execute:
 	System.err.println("TEST_COVERAGE_getCodeFromTermcap:1");
-    for each branch (ID = 1 in example above).
+   for each branch (ID = 1 in example above).
 
 2) Run tests with -i flag to get error printouts, save output to file.
-    $ ./gradlew test -i &> testlog.txt
+   $ ./gradlew test -i &> testlog.txt
 
 3) Grep the file to get relevant lines about test coverage, and save them to file.
-    $ cat testlog.txt | grep -e "TEST_COVERAGE_getCodeFromTermcap" > coverage.txt
+   $ cat testlog.txt | grep -e "TEST_COVERAGE_getCodeFromTermcap" > coverage.txt
 
 4) Run this file to get coverage printouts.
-    $ python3 cov.py
+   $ python3 cov.py
 """
 ```
 
