@@ -58,25 +58,65 @@ public final class TerminalBuffer {
     }
 
     public String getSelectedText(int selX1, int selY1, int selX2, int selY2, boolean joinBackLines, boolean joinFullLines) {
+        System.err.println("TEST_COVERAGE_getSelectedText:1");
         final StringBuilder builder = new StringBuilder();
         final int columns = mColumns;
 
-        if (selY1 < -getActiveTranscriptRows()) selY1 = -getActiveTranscriptRows();
-        if (selY2 >= mScreenRows) selY2 = mScreenRows - 1;
+        if (selY1 < -getActiveTranscriptRows()) {
+            System.err.println("TEST_COVERAGE_getSelectedText:2");
+            selY1 = -getActiveTranscriptRows();
+        } else {
+            System.err.println("TEST_COVERAGE_getSelectedText:3");
+        }
+        if (selY2 >= mScreenRows) {
+            System.err.println("TEST_COVERAGE_getSelectedText:4");
+            selY2 = mScreenRows - 1;
+        } else {
+            System.err.println("TEST_COVERAGE_getSelectedText:5");
+        }
 
         for (int row = selY1; row <= selY2; row++) {
-            int x1 = (row == selY1) ? selX1 : 0;
+            System.err.println("TEST_COVERAGE_getSelectedText:6");
+
+            //int x1 = (row == selY1) ? selX1 : 0;
+            int x1;
+            if (row == selY1) {
+                System.err.println("TEST_COVERAGE_getSelectedText:7");
+                x1 = selX1;
+            } else {
+                System.err.println("TEST_COVERAGE_getSelectedText:8");
+                x1 = 0;
+            }
+
             int x2;
             if (row == selY2) {
+                System.err.println("TEST_COVERAGE_getSelectedText:9");
                 x2 = selX2 + 1;
-                if (x2 > columns) x2 = columns;
+                if (x2 > columns) {
+                    System.err.println("TEST_COVERAGE_getSelectedText:10");
+                    x2 = columns;
+                } else {
+                    System.err.println("TEST_COVERAGE_getSelectedText:11");
+                }
             } else {
+                System.err.println("TEST_COVERAGE_getSelectedText:12");
                 x2 = columns;
             }
             TerminalRow lineObject = mLines[externalToInternalRow(row)];
             int x1Index = lineObject.findStartOfColumn(x1);
-            int x2Index = (x2 < mColumns) ? lineObject.findStartOfColumn(x2) : lineObject.getSpaceUsed();
+
+            //int x2Index = (x2 < mColumns) ? lineObject.findStartOfColumn(x2) : lineObject.getSpaceUsed();
+            int x2Index;
+            if (x2 < mColumns) {
+                System.err.println("TEST_COVERAGE_getSelectedText:13");
+                x2Index = lineObject.findStartOfColumn(x2);
+            } else {
+                System.err.println("TEST_COVERAGE_getSelectedText:14");
+                x2Index = lineObject.getSpaceUsed();
+            }
+
             if (x2Index == x1Index) {
+                System.err.println("TEST_COVERAGE_getSelectedText:15");
                 // Selected the start of a wide character.
                 x2Index = lineObject.findStartOfColumn(x2 + 1);
             }
@@ -84,20 +124,116 @@ public final class TerminalBuffer {
             int lastPrintingCharIndex = -1;
             int i;
             boolean rowLineWrap = getLineWrap(row);
-            if (rowLineWrap && x2 == columns) {
-                // If the line was wrapped, we shouldn't lose trailing space:
-                lastPrintingCharIndex = x2Index - 1;
+            if (rowLineWrap) {
+                System.err.println("TEST_COVERAGE_getSelectedText:16");
+                if (x2 == columns) {
+                    System.err.println("TEST_COVERAGE_getSelectedText:17");
+                    // If the line was wrapped, we shouldn't lose trailing space:
+                    lastPrintingCharIndex = x2Index - 1;
+                } else {
+                    System.err.println("TEST_COVERAGE_getSelectedText:18");
+                    for (i = x1Index; i < x2Index; ++i) {
+                        System.err.println("TEST_COVERAGE_getSelectedText:19");
+                        char c = line[i];
+                        if (c != ' ') {
+                            System.err.println("TEST_COVERAGE_getSelectedText:20");
+                            lastPrintingCharIndex = i;
+                        } else {
+                            System.err.println("TEST_COVERAGE_getSelectedText:21");
+                        }
+                    }
+                }
             } else {
+                System.err.println("TEST_COVERAGE_getSelectedText:22");
                 for (i = x1Index; i < x2Index; ++i) {
+                    System.err.println("TEST_COVERAGE_getSelectedText:23");
                     char c = line[i];
-                    if (c != ' ') lastPrintingCharIndex = i;
+                    if (c != ' ') {
+                        System.err.println("TEST_COVERAGE_getSelectedText:24");
+                        lastPrintingCharIndex = i;
+                    } else {
+                        System.err.println("TEST_COVERAGE_getSelectedText:25");
+                    }
                 }
             }
-            if (lastPrintingCharIndex != -1)
+
+            if (lastPrintingCharIndex != -1) {
+                System.err.println("TEST_COVERAGE_getSelectedText:26");
                 builder.append(line, x1Index, lastPrintingCharIndex - x1Index + 1);
+            } else {
+                System.err.println("TEST_COVERAGE_getSelectedText:27");
+            }
+
             boolean lineFillsWidth = lastPrintingCharIndex == x2Index - 1;
-            if ((!joinBackLines || !rowLineWrap) && (!joinFullLines || !lineFillsWidth)
-                && row < selY2 && row < mScreenRows - 1) builder.append('\n');
+
+            /*if ((!joinBackLines || !rowLineWrap) && (!joinFullLines || !lineFillsWidth)
+                && row < selY2 && row < mScreenRows - 1) builder.append('\n');*/
+
+            if (!joinBackLines) {
+                System.err.println("TEST_COVERAGE_getSelectedText:28");
+                if (!joinFullLines) {
+                    System.err.println("TEST_COVERAGE_getSelectedText:29");
+                    if (row < selY2) {
+                        System.err.println("TEST_COVERAGE_getSelectedText:30");
+                        if (row < mScreenRows - 1) {
+                            System.err.println("TEST_COVERAGE_getSelectedText:31");
+                            builder.append('\n');
+                        } else {
+                            System.err.println("TEST_COVERAGE_getSelectedText:32");
+                        }
+                    } else {
+                        System.err.println("TEST_COVERAGE_getSelectedText:33");
+                    }
+                } else if (!lineFillsWidth) {
+                    System.err.println("TEST_COVERAGE_getSelectedText:34");
+                    if (row < selY2) {
+                        System.err.println("TEST_COVERAGE_getSelectedText:35");
+                        if (row < mScreenRows - 1) {
+                            System.err.println("TEST_COVERAGE_getSelectedText:36");
+                            builder.append('\n');
+                        } else {
+                            System.err.println("TEST_COVERAGE_getSelectedText:37");
+                        }
+                    } else {
+                        System.err.println("TEST_COVERAGE_getSelectedText:38");
+                    }
+                } else {
+                    System.err.println("TEST_COVERAGE_getSelectedText:39");
+                }
+            } else if (!rowLineWrap) {
+                System.err.println("TEST_COVERAGE_getSelectedText:40");
+                if (!joinFullLines) {
+                    System.err.println("TEST_COVERAGE_getSelectedText:41");
+                    if (row < selY2) {
+                        System.err.println("TEST_COVERAGE_getSelectedText:42");
+                        if (row < mScreenRows - 1) {
+                            System.err.println("TEST_COVERAGE_getSelectedText:43");
+                            builder.append('\n');
+                        } else {
+                            System.err.println("TEST_COVERAGE_getSelectedText:44");
+                        }
+                    } else {
+                        System.err.println("TEST_COVERAGE_getSelectedText:45");
+                    }
+                } else if (!lineFillsWidth) {
+                    System.err.println("TEST_COVERAGE_getSelectedText:46");
+                    if (row < selY2) {
+                        System.err.println("TEST_COVERAGE_getSelectedText:47");
+                        if (row < mScreenRows - 1) {
+                            System.err.println("TEST_COVERAGE_getSelectedText:48");
+                            builder.append('\n');
+                        } else {
+                            System.err.println("TEST_COVERAGE_getSelectedText:49");
+                        }
+                    } else {
+                        System.err.println("TEST_COVERAGE_getSelectedText:50");
+                    }
+                } else {
+                    System.err.println("TEST_COVERAGE_getSelectedText:51");
+                }
+            } else {
+                System.err.println("TEST_COVERAGE_getSelectedText:52");
+            }
         }
         return builder.toString();
     }
