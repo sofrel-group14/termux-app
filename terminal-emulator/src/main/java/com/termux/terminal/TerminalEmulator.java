@@ -1671,109 +1671,166 @@ public final class TerminalEmulator {
 
     /** Select Graphic Rendition (SGR) - see http://en.wikipedia.org/wiki/ANSI_escape_code#graphics. */
     private void selectGraphicRendition() {
-        if (mArgIndex >= mArgs.length) mArgIndex = mArgs.length - 1;
+        System.err.println("TEST_COVERAGE_selectGraphicRendition|1:49");
+        System.err.println("TEST_COVERAGE_selectGraphicRendition:1");
+        if (mArgIndex >= mArgs.length) {
+            System.err.println("TEST_COVERAGE_selectGraphicRendition:2");
+            mArgIndex = mArgs.length - 1;
+        }
         for (int i = 0; i <= mArgIndex; i++) {
+            System.err.println("TEST_COVERAGE_selectGraphicRendition:3");
             int code = mArgs[i];
             if (code < 0) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:4");
                 if (mArgIndex > 0) {
+                    System.err.println("TEST_COVERAGE_selectGraphicRendition:5");
                     continue;
                 } else {
+                    System.err.println("TEST_COVERAGE_selectGraphicRendition:49");
                     code = 0;
                 }
             }
             if (code == 0) { // reset
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:6");
                 mForeColor = TextStyle.COLOR_INDEX_FOREGROUND;
                 mBackColor = TextStyle.COLOR_INDEX_BACKGROUND;
                 mEffect = 0;
             } else if (code == 1) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:7");
                 mEffect |= TextStyle.CHARACTER_ATTRIBUTE_BOLD;
             } else if (code == 2) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:8");
                 mEffect |= TextStyle.CHARACTER_ATTRIBUTE_DIM;
             } else if (code == 3) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:9");
                 mEffect |= TextStyle.CHARACTER_ATTRIBUTE_ITALIC;
             } else if (code == 4) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:10");
                 mEffect |= TextStyle.CHARACTER_ATTRIBUTE_UNDERLINE;
             } else if (code == 5) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:11");
                 mEffect |= TextStyle.CHARACTER_ATTRIBUTE_BLINK;
             } else if (code == 7) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:12");
                 mEffect |= TextStyle.CHARACTER_ATTRIBUTE_INVERSE;
             } else if (code == 8) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:13");
                 mEffect |= TextStyle.CHARACTER_ATTRIBUTE_INVISIBLE;
             } else if (code == 9) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:14");
                 mEffect |= TextStyle.CHARACTER_ATTRIBUTE_STRIKETHROUGH;
             } else if (code == 10) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:15");
                 // Exit alt charset (TERM=linux) - ignore.
             } else if (code == 11) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:16");
                 // Enter alt charset (TERM=linux) - ignore.
             } else if (code == 22) { // Normal color or intensity, neither bright, bold nor faint.
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:17");
                 mEffect &= ~(TextStyle.CHARACTER_ATTRIBUTE_BOLD | TextStyle.CHARACTER_ATTRIBUTE_DIM);
             } else if (code == 23) { // not italic, but rarely used as such; clears standout with TERM=screen
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:18");
                 mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_ITALIC;
             } else if (code == 24) { // underline: none
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:19");
                 mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_UNDERLINE;
             } else if (code == 25) { // blink: none
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:20");
                 mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_BLINK;
             } else if (code == 27) { // image: positive
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:21");
                 mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_INVERSE;
             } else if (code == 28) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:22");
                 mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_INVISIBLE;
             } else if (code == 29) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:23");
                 mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_STRIKETHROUGH;
             } else if (code >= 30 && code <= 37) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:24");
                 mForeColor = code - 30;
             } else if (code == 38 || code == 48) {
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:25");
                 // Extended set foreground(38)/background (48) color.
                 // This is followed by either "2;$R;$G;$B" to set a 24-bit color or
                 // "5;$INDEX" to set an indexed color.
-                if (i + 2 > mArgIndex) continue;
+                if (i + 2 > mArgIndex) {
+                    System.err.println("TEST_COVERAGE_selectGraphicRendition:26");
+                    continue;
+                }
                 int firstArg = mArgs[i + 1];
                 if (firstArg == 2) {
+                    System.err.println("TEST_COVERAGE_selectGraphicRendition:27");
                     if (i + 4 > mArgIndex) {
+                        System.err.println("TEST_COVERAGE_selectGraphicRendition:28");
                         Log.w(EmulatorDebug.LOG_TAG, "Too few CSI" + code + ";2 RGB arguments");
                     } else {
+                        System.err.println("TEST_COVERAGE_selectGraphicRendition:29");
                         int red = mArgs[i + 2], green = mArgs[i + 3], blue = mArgs[i + 4];
                         if (red < 0 || green < 0 || blue < 0 || red > 255 || green > 255 || blue > 255) {
+                            System.err.println("TEST_COVERAGE_selectGraphicRendition:30");
                             finishSequenceAndLogError("Invalid RGB: " + red + "," + green + "," + blue);
                         } else {
+                            System.err.println("TEST_COVERAGE_selectGraphicRendition:31");
                             int argbColor = 0xff000000 | (red << 16) | (green << 8) | blue;
                             if (code == 38) {
+                                System.err.println("TEST_COVERAGE_selectGraphicRendition:32");
                                 mForeColor = argbColor;
                             } else {
+                                System.err.println("TEST_COVERAGE_selectGraphicRendition:33");
                                 mBackColor = argbColor;
                             }
                         }
                         i += 4; // "2;P_r;P_g;P_r"
                     }
                 } else if (firstArg == 5) {
+                    System.err.println("TEST_COVERAGE_selectGraphicRendition:34");
                     int color = mArgs[i + 2];
                     i += 2; // "5;P_s"
                     if (color >= 0 && color < TextStyle.NUM_INDEXED_COLORS) {
+                        System.err.println("TEST_COVERAGE_selectGraphicRendition:35");
                         if (code == 38) {
+                            System.err.println("TEST_COVERAGE_selectGraphicRendition:36");
                             mForeColor = color;
                         } else {
+                            System.err.println("TEST_COVERAGE_selectGraphicRendition:37");
                             mBackColor = color;
                         }
                     } else {
-                        if (LOG_ESCAPE_SEQUENCES) Log.w(EmulatorDebug.LOG_TAG, "Invalid color index: " + color);
+                        System.err.println("TEST_COVERAGE_selectGraphicRendition:38");
+                        if (LOG_ESCAPE_SEQUENCES) {
+                            System.err.println("TEST_COVERAGE_selectGraphicRendition:39");
+                            Log.w(EmulatorDebug.LOG_TAG, "Invalid color index: " + color);
+                        }
                     }
                 } else {
+                    System.err.println("TEST_COVERAGE_selectGraphicRendition:40");
                     finishSequenceAndLogError("Invalid ISO-8613-3 SGR first argument: " + firstArg);
                 }
             } else if (code == 39) { // Set default foreground color.
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:41");
                 mForeColor = TextStyle.COLOR_INDEX_FOREGROUND;
             } else if (code >= 40 && code <= 47) { // Set background color.
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:42");
                 mBackColor = code - 40;
             } else if (code == 49) { // Set default background color.
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:43");
                 mBackColor = TextStyle.COLOR_INDEX_BACKGROUND;
             } else if (code >= 90 && code <= 97) { // Bright foreground colors (aixterm codes).
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:44");
                 mForeColor = code - 90 + 8;
             } else if (code >= 100 && code <= 107) { // Bright background color (aixterm codes).
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:45");
                 mBackColor = code - 100 + 8;
             } else {
-                if (LOG_ESCAPE_SEQUENCES)
+                System.err.println("TEST_COVERAGE_selectGraphicRendition:46");
+                if (LOG_ESCAPE_SEQUENCES) {
+                    System.err.println("TEST_COVERAGE_selectGraphicRendition:47");
                     Log.w(EmulatorDebug.LOG_TAG, String.format("SGR unknown code %d", code));
+                }
             }
         }
+        System.err.println("TEST_COVERAGE_selectGraphicRendition:48");
     }
 
     private void doOsc(int b) {
