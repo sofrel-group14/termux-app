@@ -98,9 +98,63 @@ We chose 5 of those to manually calculate CCN, with the following results (with 
 
 ## Refactoring
 
-Plan for refactoring complex code:
+Detailed below are plans for refactoring five different complex functions.
 
-Estimated impact of refactoring (lower CC, but other drawbacks?).
+#### 1. Refactoring TermuxOpenReceiver.java:onReceive
+
+```java
+//...
+final String intentAction = intent.getAction() == null ? Intent.ACTION_VIEW : intent.getAction();
+switch (intentAction) {
+    case Intent.ACTION_SEND:
+    case Intent.ACTION_VIEW:
+        // Ok.
+        break;
+    default:
+        Log.e(EmulatorDebug.LOG_TAG, "Invalid action '" + intentAction + "', using 'view'");
+        break;
+}
+// ...
+```
+
+Breaking out this switch-statement to a new function, say `verifyIntentAction`, would reduce the CC by 3.
+
+```java
+public void verifyIntentAction(int intentAction) {
+    switch (intentAction) {
+        case Intent.ACTION_SEND:
+        case Intent.ACTION_VIEW:
+            // Ok.
+            break;
+    default:
+        Log.e(EmulatorDebug.LOG_TAG, "Invalid action '" + intentAction + "', using 'view'");
+        break;
+}
+```
+
+Further, we have the following block of code:
+
+```java
+final File fileToShare = new File(filePath);
+//...
+String contentTypeToUse;
+if (contentTypeExtra == null) {
+    String fileName = fileToShare.getName();
+    int lastDotIndex = fileName.lastIndexOf('.');
+    String fileExtension = fileName.substring(lastDotIndex + 1);
+    MimeTypeMap mimeTypes = MimeTypeMap.getSingleton();
+    // Lower casing makes it work with e.g. "JPG":
+    contentTypeToUse = mimeTypes.getMimeTypeFromExtension(fileExtension.toLowerCase());
+    if (contentTypeToUse == null) contentTypeToUse = "application/octet-stream";
+} else {
+    contentTypeToUse = contentTypeExtra;
+}
+```
+which seems to extract the MIME-type to use based on the file path.
+This could also be broken out to a different function, say `getMimeTypeFromFile`.
+This would reduce the CC by 3, and also the LOC quite a bit (another way to measure complexity).
+
+***(Estimated impact of refactoring (lower CC, but other drawbacks?).)***
 
 Carried out refactoring (optional, P+):
 
