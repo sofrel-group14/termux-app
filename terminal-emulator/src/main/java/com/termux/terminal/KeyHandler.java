@@ -130,6 +130,8 @@ public final class KeyHandler {
     }
 
     static String getCodeFromTermcap(String termcap, boolean cursorKeysApplication, boolean keypadApplication) {
+
+
         Integer keyCodeAndMod = TERMCAP_TO_KEYCODE.get(termcap);
         if (keyCodeAndMod == null) return null;
         int keyCode = keyCodeAndMod;

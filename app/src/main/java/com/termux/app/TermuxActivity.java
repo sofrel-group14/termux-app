@@ -859,7 +859,7 @@ public final class TermuxActivity extends Activity implements ServiceConnection 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         TerminalSession session = getCurrentTermSession();
-
+        System.out.println("Hllo WOrld");
         switch (item.getItemId()) {
             case CONTEXTMENU_SELECT_URL_ID:
                 showUrlSelection();

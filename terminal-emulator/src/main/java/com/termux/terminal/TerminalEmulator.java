@@ -1219,6 +1219,7 @@ public final class TerminalEmulator {
     }
 
     private void doEscPound(int b) {
+
         switch (b) {
             case '8': // Esc # 8 - DEC screen alignment test - fill screen with E's.
                 mScreen.blockSet(0, 0, mColumns, mRows, 'E', getStyle());
@@ -1231,66 +1232,86 @@ public final class TerminalEmulator {
 
     /** Encountering a character in the {@link #ESC} state. */
     private void doEsc(int b) {
+
         switch (b) {
             case '#':
+                System.err.println("TEST_COVERAGE_doEsc:1");
                 continueSequence(ESC_POUND);
                 break;
             case '(':
+                System.err.println("TEST_COVERAGE_doEsc:2");
                 continueSequence(ESC_SELECT_LEFT_PAREN);
                 break;
             case ')':
+                System.err.println("TEST_COVERAGE_doEsc:3");
                 continueSequence(ESC_SELECT_RIGHT_PAREN);
                 break;
             case '6': // Back index (http://www.vt100.net/docs/vt510-rm/DECBI). Move left, insert blank column if start.
+                System.err.println("TEST_COVERAGE_doEsc:4");
                 if (mCursorCol > mLeftMargin) {
+                    System.err.println("TEST_COVERAGE_doEsc:5");
                     mCursorCol--;
                 } else {
+                    System.err.println("TEST_COVERAGE_doEsc:6");
                     int rows = mBottomMargin - mTopMargin;
                     mScreen.blockCopy(mLeftMargin, mTopMargin, mRightMargin - mLeftMargin - 1, rows, mLeftMargin + 1, mTopMargin);
                     mScreen.blockSet(mLeftMargin, mTopMargin, 1, rows, ' ', TextStyle.encode(mForeColor, mBackColor, 0));
                 }
                 break;
             case '7': // DECSC save cursor - http://www.vt100.net/docs/vt510-rm/DECSC
+                System.err.println("TEST_COVERAGE_doEsc:7");
                 saveCursor();
                 break;
             case '8': // DECRC restore cursor - http://www.vt100.net/docs/vt510-rm/DECRC
+                System.err.println("TEST_COVERAGE_doEsc:8");
                 restoreCursor();
                 break;
             case '9': // Forward Index (http://www.vt100.net/docs/vt510-rm/DECFI). Move right, insert blank column if end.
+                System.err.println("TEST_COVERAGE_doEsc:9");
                 if (mCursorCol < mRightMargin - 1) {
+                    System.err.println("TEST_COVERAGE_doEsc:10");
                     mCursorCol++;
                 } else {
+                    System.err.println("TEST_COVERAGE_doEsc:11");
                     int rows = mBottomMargin - mTopMargin;
                     mScreen.blockCopy(mLeftMargin + 1, mTopMargin, mRightMargin - mLeftMargin - 1, rows, mLeftMargin, mTopMargin);
                     mScreen.blockSet(mRightMargin - 1, mTopMargin, 1, rows, ' ', TextStyle.encode(mForeColor, mBackColor, 0));
                 }
                 break;
             case 'c': // RIS - Reset to Initial State (http://vt100.net/docs/vt510-rm/RIS).
+                System.err.println("TEST_COVERAGE_doEsc:12");
                 reset();
                 mMainBuffer.clearTranscript();
                 blockClear(0, 0, mColumns, mRows);
                 setCursorPosition(0, 0);
                 break;
             case 'D': // INDEX
+                System.err.println("TEST_COVERAGE_doEsc:13");
                 doLinefeed();
                 break;
             case 'E': // Next line (http://www.vt100.net/docs/vt510-rm/NEL).
+                System.err.println("TEST_COVERAGE_doEsc:14");
                 setCursorCol(isDecsetInternalBitSet(DECSET_BIT_ORIGIN_MODE) ? mLeftMargin : 0);
                 doLinefeed();
                 break;
             case 'F': // Cursor to lower-left corner of screen
+                System.err.println("TEST_COVERAGE_doEsc:15");
                 setCursorRowCol(0, mBottomMargin - 1);
                 break;
             case 'H': // Tab set
+                System.err.println("TEST_COVERAGE_doEsc:16");
                 mTabStop[mCursorCol] = true;
                 break;
             case 'M': // "${ESC}M" - reverse index (RI).
+                System.err.println("TEST_COVERAGE_doEsc:17");
                 // http://www.vt100.net/docs/vt100-ug/chapter3.html: "Move the active position to the same horizontal
                 // position on the preceding line. If the active position is at the top margin, a scroll down is performed".
                 if (mCursorRow <= mTopMargin) {
+                    System.err.println("TEST_COVERAGE_doEsc:18");
                     mScreen.blockCopy(0, mTopMargin, mColumns, mBottomMargin - (mTopMargin + 1), 0, mTopMargin + 1);
                     blockClear(0, mTopMargin, mColumns);
                 } else {
+                    System.err.println("TEST_COVERAGE_doEsc:19");
                     mCursorRow--;
                 }
                 break;
@@ -1298,23 +1319,29 @@ public final class TerminalEmulator {
             case '0': // SS3, ignore.
                 break;
             case 'P': // Device control string
+                System.err.println("TEST_COVERAGE_doEsc:20");
                 mOSCOrDeviceControlArgs.setLength(0);
                 continueSequence(ESC_P);
                 break;
             case '[':
+                System.err.println("TEST_COVERAGE_doEsc:21");
                 continueSequence(ESC_CSI);
                 break;
             case '=': // DECKPAM
+                System.err.println("TEST_COVERAGE_doEsc:22");
                 setDecsetinternalBit(DECSET_BIT_APPLICATION_KEYPAD, true);
                 break;
             case ']': // OSC
+                System.err.println("TEST_COVERAGE_doEsc:23");
                 mOSCOrDeviceControlArgs.setLength(0);
                 continueSequence(ESC_OSC);
                 break;
             case '>': // DECKPNM
+                System.err.println("TEST_COVERAGE_doEsc:24");
                 setDecsetinternalBit(DECSET_BIT_APPLICATION_KEYPAD, false);
                 break;
             default:
+                System.err.println("TEST_COVERAGE_doEsc:25");
                 unknownSequence(b);
                 break;
         }
