@@ -132,6 +132,10 @@ public class KeyHandlerTest extends TestCase {
         assertKeysEquals("\033[32~", KeyHandler.getCode(KeyEvent.KEYCODE_SYSRQ, 0, false, false));
         assertKeysEquals("\033[34~", KeyHandler.getCode(KeyEvent.KEYCODE_BREAK, 0, false, false));
 
+
+        //Taqui
+        assertKeysEquals("\033", KeyHandler.getCode(KeyEvent.KEYCODE_BACK, 0, false, false));
+        assertKeysEquals("\033OP", KeyHandler.getCode(KeyEvent.KEYCODE_NUM_LOCK, 0, false, true));
 		// Arrow keys (up/down/right/left):
 		assertKeysEquals("\033[A", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_UP, 0, false, false));
 		assertKeysEquals("\033[B", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_DOWN, 0, false, false));
