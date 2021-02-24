@@ -237,9 +237,17 @@ its output?
 
 Show the comments that describe the requirements for the coverage.
 
-Report of old coverage: [link]
+Report of old coverage:
+```
+Manually instrumented function: GETCODE
+Branches not taken (IDs): 2, 21, 22, 23, 24, 25, 29, 30, 31, 35, 36, 37, 38, 42, 43, 63, 64, 
 
-Report of new coverage: [link]
+Out of 64 branches, 47 were taken (~73%)
+```
+
+Report of new coverage:
+
+
 
 Test cases added:
 
