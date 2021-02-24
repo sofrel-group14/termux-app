@@ -81,7 +81,7 @@ We chose 5 of those to manually calculate CCN, with the following results (with 
 | Function           				  			| First calc   | Second calc  | lizard |
 | --------------------------------------------- |:------------:| ------------:| ------:|
 | TermuxOpenReceiver.java:onReceive  		 	| 13           | ??           |        |
-| TerminalEmulator.java:processByte   		 	| ??           | ??           |        |
+| TerminalEmulator.java:processByte   		 	| [9](processBytes.jpg) | [21](processBytes2.jpg)           | 21     |
 | TerminalEmulator.java:selectGraphicRendition  | ??           | ??           |        |
 | TermuxActivity.java:onContextItemSelected  	| ??           | ??           |        |
 | TermuxViewClient.java:onKeyDown   			| ??           | ??           |        |
