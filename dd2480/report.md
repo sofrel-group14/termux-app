@@ -179,7 +179,9 @@ case CONTEXTMENU_SHARE_TRANSCRIPT_ID:
         startActivity(Intent.createChooser(intent, getString(R.string.share_transcript_chooser_title)));
     }
 ```
-The point of this case statement is to start a new Activity which we can see on line 884. The first thing I would change is putting the entire `if(session != null)` in a new function since the entire point of it is to start a new Activity, which is not directly related to the function at hand and this would also reduce the CCN quite a bit. I would also probably change line 873-881 in a new function since the entire point of that block is to set the `transcriptText` and I think that having a method for calculating the `transcriptText` and returning it would look better.
+The point of this case statement is to start a new Activity which we can see on line 884. The first thing I would change is putting the entire `if(session != null)` in a new function since the entire point of it is to start a new Activity, which is not directly related to the function at hand and this would also reduce the CCN quite a bit. I would also probably change line 873-881 in a new function since the entire point of that block is to set the `transcriptText` and I think that having a method for calculating the `transcriptText` and returning it would look better. This would reduce the the CCN by 4.
+
+
 
 ```java
 case CONTEXTMENU_TOGGLE_KEEP_SCREEN_ON: {
@@ -202,7 +204,7 @@ case CONTEXTMENU_AUTOFILL_ID: {
 }
 ```
 
-I would also refactor these two switch statements by breaking them into new methods. For example in 924-933: this can be a method of its own since it only deals with toggling if the screen is always on or not. The second switch statement I would break out since it deals with some autofill manager which can easily be put in a new function since the functionality is so specific. Both of these should reduce the CCN quite a bit.
+I would also refactor these two switch statements by breaking them into new methods. For example in 924-933: this can be a method of its own since it only deals with toggling if the screen is always on or not.This would reduce the CCN by 1. The second switch statement I would break out since it deals with some autofill manager which can easily be put in a new function since the functionality is so specific This would reduce the CCN by 3. 
 
 >> Estimated impact of refactoring (lower CC, but other drawbacks?).
 >> 
