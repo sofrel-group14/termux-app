@@ -206,6 +206,12 @@ case CONTEXTMENU_AUTOFILL_ID: {
 
 I would also refactor these two switch statements by breaking them into new methods. For example in 924-933: this can be a method of its own since it only deals with toggling if the screen is always on or not.This would reduce the CCN by 1. The second switch statement I would break out since it deals with some autofill manager which can easily be put in a new function since the functionality is so specific This would reduce the CCN by 3. 
 
+#### 3. Refactoring TerminalEmulator::selectGraphicRendition
+
+This function consisted of a long if-else chain. Parts of this chain could be extracted into a hashmap and indexed for the appropriate condition. This reduced the CCN from 51 to 36.
+
+[Refactoring here.](https://github.com/sofrel-group14/termux-app/commit/ba0d9a1d8848e57437e21f66b0da405162de95de#diff-d7feb4ab2a600dd7816f1744e01a8a82926522818b465a7e3a3216b62f01d5ceR1673-R1694)
+
 >> Estimated impact of refactoring (lower CC, but other drawbacks?).
 >> 
 >> Carried out refactoring (optional, P+):
