@@ -263,29 +263,31 @@ Out of 52 branches, 34 were taken (~65%)
 
 ### Tools
 
-Document your experience in using a "new"/different coverage tool.
+>> Document your experience in using a "new"/different coverage tool.
+>>
+>> How well was the tool documented? Was it possible/easy/difficult to integrate it with your build environment?
+>>
+>> What kinds of constructs does your tool support, and how accurate is its output?
 
-How well was the tool documented? Was it possible/easy/difficult to
-integrate it with your build environment?
-
-What kinds of constructs does your tool support, and how accurate is
-its output?
 ***Not sure what we want to write here, I don't know how you guys instrumented your code. Personally I split up ternary operators, and compound if-statements (with &&s and ||s) but if that's not something we all did then probably we shouldn't write it here.***
 
 ### Evaluation
 
-1. How detailed is your coverage measurement?
+>> 1. How detailed is your coverage measurement?
+
 ***I guess this also ties back to previous question, i.e. do we take into account compound statements, things like that.***
 
-2. What are the limitations of your own tool?
+>> 2. What are the limitations of your own tool?
+
 Since it's based on manual instrumentation, it's limited in the sense that when code is changed, we would have to manually change the instrumentation code.
 
-3. Are the results of your tool consistent with existing coverage tools?
+>> 3. Are the results of your tool consistent with existing coverage tools?
+
 ***The ones of you that managed to get automatic test coverage to work will have to answer this one***
 
 ## Coverage improvement
 
-Show the comments that describe the requirements for the coverage.
+>> Show the comments that describe the requirements for the coverage.
 
 Report of old coverage:
 ```
@@ -299,22 +301,22 @@ Report of new coverage:
 
 
 
-Test cases added:
-
-git diff ...
+>> Test cases added:
+>>
+>> git diff ...
 
 ## Self-assessment: Way of working
 
-Current state according to the Essence standard: ...
-
-Was the self-assessment unanimous? Any doubts about certain items?
-
-How have you improved so far?
-
-Where is potential for improvement?
+>> Current state according to the Essence standard: ...
+>>
+>> Was the self-assessment unanimous? Any doubts about certain items?
+>>
+>> How have you improved so far?
+>>
+>> Where is potential for improvement?
 
 ## Overall experience
 
-What are your main take-aways from this project? What did you learn?
-
-Is there something special you want to mention here?
+>> What are your main take-aways from this project? What did you learn?
+>>
+>> Is there something special you want to mention here?
