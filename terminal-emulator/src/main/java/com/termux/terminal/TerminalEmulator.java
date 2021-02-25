@@ -4,10 +4,9 @@ import android.util.Base64;
 import android.util.Log;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Stack;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Renders text into a screen. Contains all the terminal-specific knowledge and state. Emulates a subset of the X Window
@@ -1671,6 +1670,28 @@ public final class TerminalEmulator {
 
     /** Select Graphic Rendition (SGR) - see http://en.wikipedia.org/wiki/ANSI_escape_code#graphics. */
     private void selectGraphicRendition() {
+
+        Map<Integer, Integer> effectMap = Stream.of(new int[][] {
+            {1, TextStyle.CHARACTER_ATTRIBUTE_BOLD},
+            {2, TextStyle.CHARACTER_ATTRIBUTE_DIM},
+            {3, TextStyle.CHARACTER_ATTRIBUTE_ITALIC},
+            {4, TextStyle.CHARACTER_ATTRIBUTE_UNDERLINE},
+            {5, TextStyle.CHARACTER_ATTRIBUTE_BLINK},
+            {7, TextStyle.CHARACTER_ATTRIBUTE_INVERSE},
+            {8, TextStyle.CHARACTER_ATTRIBUTE_INVISIBLE},
+            {9, TextStyle.CHARACTER_ATTRIBUTE_STRIKETHROUGH}
+        }).collect(Collectors.toMap(d -> d[0], d -> d[1]));
+
+        Map<Integer, Integer> effectMap2 = Stream.of(new int[][] {
+            {22, TextStyle.CHARACTER_ATTRIBUTE_BOLD | TextStyle.CHARACTER_ATTRIBUTE_DIM},
+            {23, TextStyle.CHARACTER_ATTRIBUTE_ITALIC},
+            {24, TextStyle.CHARACTER_ATTRIBUTE_UNDERLINE},
+            {25, TextStyle.CHARACTER_ATTRIBUTE_BLINK},
+            {27, TextStyle.CHARACTER_ATTRIBUTE_INVERSE},
+            {28, TextStyle.CHARACTER_ATTRIBUTE_INVISIBLE},
+            {29, TextStyle.CHARACTER_ATTRIBUTE_STRIKETHROUGH}
+        }).collect(Collectors.toMap(d -> d[0], d -> d[1]));
+
         if (mArgIndex >= mArgs.length) mArgIndex = mArgs.length - 1;
         for (int i = 0; i <= mArgIndex; i++) {
             int code = mArgs[i];
@@ -1685,40 +1706,10 @@ public final class TerminalEmulator {
                 mForeColor = TextStyle.COLOR_INDEX_FOREGROUND;
                 mBackColor = TextStyle.COLOR_INDEX_BACKGROUND;
                 mEffect = 0;
-            } else if (code == 1) {
-                mEffect |= TextStyle.CHARACTER_ATTRIBUTE_BOLD;
-            } else if (code == 2) {
-                mEffect |= TextStyle.CHARACTER_ATTRIBUTE_DIM;
-            } else if (code == 3) {
-                mEffect |= TextStyle.CHARACTER_ATTRIBUTE_ITALIC;
-            } else if (code == 4) {
-                mEffect |= TextStyle.CHARACTER_ATTRIBUTE_UNDERLINE;
-            } else if (code == 5) {
-                mEffect |= TextStyle.CHARACTER_ATTRIBUTE_BLINK;
-            } else if (code == 7) {
-                mEffect |= TextStyle.CHARACTER_ATTRIBUTE_INVERSE;
-            } else if (code == 8) {
-                mEffect |= TextStyle.CHARACTER_ATTRIBUTE_INVISIBLE;
-            } else if (code == 9) {
-                mEffect |= TextStyle.CHARACTER_ATTRIBUTE_STRIKETHROUGH;
-            } else if (code == 10) {
-                // Exit alt charset (TERM=linux) - ignore.
-            } else if (code == 11) {
-                // Enter alt charset (TERM=linux) - ignore.
-            } else if (code == 22) { // Normal color or intensity, neither bright, bold nor faint.
-                mEffect &= ~(TextStyle.CHARACTER_ATTRIBUTE_BOLD | TextStyle.CHARACTER_ATTRIBUTE_DIM);
-            } else if (code == 23) { // not italic, but rarely used as such; clears standout with TERM=screen
-                mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_ITALIC;
-            } else if (code == 24) { // underline: none
-                mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_UNDERLINE;
-            } else if (code == 25) { // blink: none
-                mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_BLINK;
-            } else if (code == 27) { // image: positive
-                mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_INVERSE;
-            } else if (code == 28) {
-                mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_INVISIBLE;
-            } else if (code == 29) {
-                mEffect &= ~TextStyle.CHARACTER_ATTRIBUTE_STRIKETHROUGH;
+            } else if (effectMap.containsKey(code)) {
+                mEffect |= effectMap.get(code);
+            } else if (effectMap2.containsKey(code)) {
+                mEffect &= ~effectMap2.get(code);
             } else if (code >= 30 && code <= 37) {
                 mForeColor = code - 30;
             } else if (code == 38 || code == 48) {
