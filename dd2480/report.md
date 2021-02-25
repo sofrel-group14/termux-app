@@ -154,6 +154,56 @@ which seems to extract the MIME-type to use based on the file path.
 This could also be broken out to a different function, say `getMimeTypeFromFile`.
 This would reduce the CC by 3, and also the LOC quite a bit (another way to measure complexity).
 
+#### 2. Refactoring TermuxActivity.java:onContextItemSelected
+
+When looking at onContextItemSelected the first aspect I would refactor this case statement:
+
+```java
+case CONTEXTMENU_SHARE_TRANSCRIPT_ID:
+    if (session != null) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String transcriptText = session.getEmulator().getScreen().getTranscriptTextWithoutJoinedLines().trim();
+        // See https://github.com/termux/termux-app/issues/1166.
+        final int MAX_LENGTH = 100_000;
+        if (transcriptText.length() > MAX_LENGTH) {
+            int cutOffIndex = transcriptText.length() - MAX_LENGTH;
+            int nextNewlineIndex = transcriptText.indexOf('\n', cutOffIndex);
+            if (nextNewlineIndex != -1 && nextNewlineIndex != transcriptText.length() - 1) {
+                cutOffIndex = nextNewlineIndex + 1;
+            }
+            transcriptText = transcriptText.substring(cutOffIndex).trim();
+        }
+        intent.putExtra(Intent.EXTRA_TEXT, transcriptText);
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_transcript_title));
+        startActivity(Intent.createChooser(intent, getString(R.string.share_transcript_chooser_title)));
+    }
+```
+The point of this case statement is to start a new Activity which we can see on line 884. The first thing I would change is putting the entire `if(session != null)` in a new function since the entire point of it is to start a new Activity which is not directly related to the function at hand and this would also reduce the CCN quite a bit. I would also probably change line 873-881 in a new function since the entire point of that block is to set the `transcriptText` and I think that having a method for calculating the `transcriptText` and returning it would look better.
+
+```java
+case CONTEXTMENU_TOGGLE_KEEP_SCREEN_ON: {
+    if(mTerminalView.getKeepScreenOn()) {
+        mTerminalView.setKeepScreenOn(false);
+        mSettings.setScreenAlwaysOn(this, false);
+    } else {
+        mTerminalView.setKeepScreenOn(true);
+        mSettings.setScreenAlwaysOn(this, true);
+    }
+    return true;
+}
+case CONTEXTMENU_AUTOFILL_ID: {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        AutofillManager autofillManager = getSystemService(AutofillManager.class);
+        if (autofillManager != null && autofillManager.isEnabled()) {
+            autofillManager.requestAutofill(mTerminalView);
+        }
+    }
+}
+```
+
+I would also refactor these two functions by breaking them into new methods. For example in 924-933 this can a method of its own since it only deals with keeping the screen always on.The second switch statement I would break out since it deals with some autofill manager which is can easily be put in a new function since the functionality is so specific. Both of these should reduce the CCN quite a bit.
+
 >> Estimated impact of refactoring (lower CC, but other drawbacks?).
 >> 
 >> Carried out refactoring (optional, P+):
@@ -301,9 +351,12 @@ Report of new coverage:
 
 
 
->> Test cases added:
->>
->> git diff ...
+### Test cases added
+- Taqui added: https://github.com/sofrel-group14/termux-app/commit/74e3782bc8a06c7efb2824f7f18c4f404336ef37
+- Axel added: https://github.com/sofrel-group14/termux-app/commit/ed2142ddaff719dde418aed2e0f674ab38462046 (see the file KeyHandlerTest.java at the bottom).
+- Andreas added: https://github.com/sofrel-group14/termux-app/commit/032e4c1aa3655c1270544d143a317b09da4e7bf4
+- Yannis added: https://github.com/sofrel-group14/termux-app/commit/4448012dbf04a7dc2e3afa433f9bd04a78c20373
+- Telo added: 
 
 ## Self-assessment: Way of working
 
