@@ -368,6 +368,8 @@ Report of new coverage:
 >>
 >> Where is potential for improvement?
 
+See [this](https://docs.google.com/document/d/1hg5l8HvAqXFEaWk-7z9bNG7bG17T9uXoqnSrAjUhwm0/edit?usp=sharing) document.
+
 ## Overall experience
 
 >> What are your main take-aways from this project? What did you learn?
