@@ -212,6 +212,14 @@ This function consisted of a long if-else chain. Parts of this chain could be ex
 
 [Refactoring here.](https://github.com/sofrel-group14/termux-app/commit/ba0d9a1d8848e57437e21f66b0da405162de95de#diff-d7feb4ab2a600dd7816f1744e01a8a82926522818b465a7e3a3216b62f01d5ceR1673-R1694)
 
+#### 4. Refactoring TerminalEmulator::processCodePoint
+
+
+`processCodePoint` is one of the functions with the highest CCN, as can be seen in [Complexity](#complexity). If we take a look at this function, we can see that it contains one huge switch statement, with several switch statements nested in its cases (up to 4 levels of nesting). In its current state it is hard to get a good overview and understand the function, especially when there are several nested switches. Firstly, I think the whole function could be moved to its own class. The `TerminalEmulator` class is already 2000 lines long, and by separating `processCodePoint` into smaller parts in another class would reduce this by 330 lines.
+
+For example, by moving the switch statement in the default case at line 539 into a separate function you would decrease the CCN by around 65 or so, which would half the CCN. This function could be broken up further to decrease its complexity in turn.
+
+
 >> Estimated impact of refactoring (lower CC, but other drawbacks?).
 >> 
 >> Carried out refactoring (optional, P+):
