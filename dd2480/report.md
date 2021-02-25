@@ -214,17 +214,9 @@ This function consisted of a long if-else chain. Parts of this chain could be ex
 
 #### 4. Refactoring TerminalEmulator::processCodePoint
 
-
 `processCodePoint` is one of the functions with the highest CCN, as can be seen in [Complexity](#complexity). If we take a look at this function, we can see that it contains one huge switch statement, with several switch statements nested in its cases (up to 4 levels of nesting). In its current state it is hard to get a good overview and understand the function, especially when there are several nested switches. Firstly, I think the whole function could be moved to its own class. The `TerminalEmulator` class is already 2000 lines long, and by separating `processCodePoint` into smaller parts in another class would reduce this by 330 lines.
 
 For example, by moving the switch statement in the default case at line 539 into a separate function you would decrease the CCN by around 65 or so, which would half the CCN. This function could be broken up further to decrease its complexity in turn.
-
-
->> Estimated impact of refactoring (lower CC, but other drawbacks?).
->> 
->> Carried out refactoring (optional, P+):
->> 
->> git diff ...
 
 ## Coverage
 
@@ -335,13 +327,11 @@ Out of 52 branches, 34 were taken (~65%)
 >>
 >> What kinds of constructs does your tool support, and how accurate is its output?
 
-***Not sure what we want to write here, I don't know how you guys instrumented your code. Personally I split up ternary operators, and compound if-statements (with &&s and ||s) but if that's not something we all did then probably we shouldn't write it here.***
-
 ### Evaluation
 
 >> 1. How detailed is your coverage measurement?
 
-***I guess this also ties back to previous question, i.e. do we take into account compound statements, things like that.***
+It does not consider ternary operators, and compound if-statements (with &&s and ||s)
 
 >> 2. What are the limitations of your own tool?
 
@@ -349,7 +339,7 @@ Since it's based on manual instrumentation, it's limited in the sense that when 
 
 >> 3. Are the results of your tool consistent with existing coverage tools?
 
-***The ones of you that managed to get automatic test coverage to work will have to answer this one***
+No since we don't consider ternary operators
 
 ## Coverage improvement
 
@@ -363,9 +353,9 @@ Branches not taken (IDs): 2, 21, 22, 23, 24, 25, 29, 30, 31, 35, 36, 37, 38, 42,
 Out of 64 branches, 47 were taken (~73%)
 ```
 
-Report of new coverage:
+# Report of new coverage:
 
-
+Insert *after* results here.
 
 ### Test cases added
 - Taqui added: https://github.com/sofrel-group14/termux-app/commit/74e3782bc8a06c7efb2824f7f18c4f404336ef37
@@ -376,18 +366,13 @@ Report of new coverage:
 
 ## Self-assessment: Way of working
 
->> Current state according to the Essence standard: ...
->>
->> Was the self-assessment unanimous? Any doubts about certain items?
->>
->> How have you improved so far?
->>
->> Where is potential for improvement?
+The self assessment was unanimous.
 
 See [this](https://docs.google.com/document/d/1hg5l8HvAqXFEaWk-7z9bNG7bG17T9uXoqnSrAjUhwm0/edit?usp=sharing) document.
 
 ## Overall experience
 
->> What are your main take-aways from this project? What did you learn?
->>
->> Is there something special you want to mention here?
+- Documentation of code is underrated
+- Communication matters - communicate more
+- Android Studio brings us sadness
+
