@@ -29,13 +29,13 @@ There was pretty much no documentation available at all, so we had to figure it 
 
 ## Complexity
 
-1. What are your results for ten complex functions?
-   * Did all methods (tools vs. manual count) get the same result?
-   * Are the results clear?
-2. Are the functions just complex, or also long?
-3. What is the purpose of the functions?
-4. Are exceptions taken into account in the given measurements?
-5. Is the documentation clear w.r.t. all the possible outcomes?
+>> 1. What are your results for ten complex functions?
+>>    * Did all methods (tools vs. manual count) get the same result?
+>>    * Are the results clear?
+>> 2. Are the functions just complex, or also long?
+>> 3. What is the purpose of the functions?
+>> 4. Are exceptions taken into account in the given measurements?
+>> 5. Is the documentation clear w.r.t. all the possible outcomes?
 
 These were the functions that generated warnings in lizard, they all have CCN > 15:
 ```
@@ -185,15 +185,18 @@ USAGE:
 """
 ```
 
-#### Example input to Python script:
+#### Example input (abbreviated) to Python script:
 ```
 coverage.txt
+
+...
 TEST_COVERAGE_getSelectedText:41
 TEST_COVERAGE_getSelectedText:42
 TEST_COVERAGE_getSelectedText:43
 TEST_COVERAGE_getSelectedText:6
 TEST_COVERAGE_getSelectedText:8
 TEST_COVERAGE_getSelectedText:12
+...
 ```
 
 #### Example output from Python script:
