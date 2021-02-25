@@ -155,7 +155,9 @@ This could also be broken out to a different function, say `getMimeTypeFromFile`
 This would reduce the CC by 3, and also the LOC quite a bit (another way to measure complexity).
 
 >> Estimated impact of refactoring (lower CC, but other drawbacks?).
+>> 
 >> Carried out refactoring (optional, P+):
+>> 
 >> git diff ...
 
 ## Coverage
