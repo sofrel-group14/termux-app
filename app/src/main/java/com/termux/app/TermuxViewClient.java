@@ -57,53 +57,85 @@ public final class TermuxViewClient implements TerminalViewClient {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent e, TerminalSession currentSession) {
-        if (handleVirtualKeys(keyCode, e, true)) return true;
+        System.err.println("TEST_COVERAGE_onKeyDown:1");
+        if (handleVirtualKeys(keyCode, e, true)) {
+            System.err.println("TEST_COVERAGE_onKeyDown:2");
+            return true;
+        }
+        else {
+            System.err.println("TEST_COVERAGE_onKeyDown:3");
+        }
 
         if (keyCode == KeyEvent.KEYCODE_ENTER && !currentSession.isRunning()) {
+            System.err.println("TEST_COVERAGE_onKeyDown:4");
             mActivity.removeFinishedSession(currentSession);
             return true;
         } else if (e.isCtrlPressed() && e.isAltPressed()) {
+            System.err.println("TEST_COVERAGE_onKeyDown:5");
             // Get the unmodified code point:
             int unicodeChar = e.getUnicodeChar(0);
 
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN || unicodeChar == 'n'/* next */) {
+                System.err.println("TEST_COVERAGE_onKeyDown:6");
                 mActivity.switchToSession(true);
             } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP || unicodeChar == 'p' /* previous */) {
+                System.err.println("TEST_COVERAGE_onKeyDown:7");
                 mActivity.switchToSession(false);
             } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                System.err.println("TEST_COVERAGE_onKeyDown:8");
                 mActivity.getDrawer().openDrawer(Gravity.LEFT);
             } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                System.err.println("TEST_COVERAGE_onKeyDown:9");
                 mActivity.getDrawer().closeDrawers();
             } else if (unicodeChar == 'k'/* keyboard */) {
+                System.err.println("TEST_COVERAGE_onKeyDown:10");
                 InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             } else if (unicodeChar == 'm'/* menu */) {
+                System.err.println("TEST_COVERAGE_onKeyDown:11");
                 mActivity.mTerminalView.showContextMenu();
             } else if (unicodeChar == 'r'/* rename */) {
+                System.err.println("TEST_COVERAGE_onKeyDown:12");
                 mActivity.renameSession(currentSession);
             } else if (unicodeChar == 'c'/* create */) {
+                System.err.println("TEST_COVERAGE_onKeyDown:13");
                 mActivity.addNewSession(false, null);
             } else if (unicodeChar == 'u' /* urls */) {
+                System.err.println("TEST_COVERAGE_onKeyDown:14");
                 mActivity.showUrlSelection();
             } else if (unicodeChar == 'v') {
+                System.err.println("TEST_COVERAGE_onKeyDown:15");
                 mActivity.doPaste();
             } else if (unicodeChar == '+' || e.getUnicodeChar(KeyEvent.META_SHIFT_ON) == '+') {
+                System.err.println("TEST_COVERAGE_onKeyDown:16");
                 // We also check for the shifted char here since shift may be required to produce '+',
                 // see https://github.com/termux/termux-api/issues/2
                 mActivity.changeFontSize(true);
             } else if (unicodeChar == '-') {
+                System.err.println("TEST_COVERAGE_onKeyDown:17");
                 mActivity.changeFontSize(false);
             } else if (unicodeChar >= '1' && unicodeChar <= '9') {
+                System.err.println("TEST_COVERAGE_onKeyDown:18");
                 int num = unicodeChar - '1';
                 TermuxService service = mActivity.mTermService;
-                if (service.getSessions().size() > num)
+                if (service.getSessions().size() > num) {
+                    System.err.println("TEST_COVERAGE_onKeyDown:19");
+                }
+                else{
+                    System.err.println("TEST_COVERAGE_onKeyDown:20");
+                }
                     mActivity.switchToSession(service.getSessions().get(num));
+                }
+            else {
+                System.err.println("TEST_COVERAGE_onKeyDown:21");
             }
             return true;
         }
-
+        else {
+            System.err.println("TEST_COVERAGE_onKeyDown:22");
+        }
+        System.err.println("TEST_COVERAGE_onKeyDown:23");
         return false;
-
     }
 
     @Override
