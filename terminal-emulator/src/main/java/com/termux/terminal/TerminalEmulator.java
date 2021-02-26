@@ -2118,107 +2118,7 @@ public final class TerminalEmulator {
         mLastEmittedCodePoint = codePoint;
         if (mUseLineDrawingUsesG0 ? mUseLineDrawingG0 : mUseLineDrawingG1) {
             // http://www.vt100.net/docs/vt102-ug/table5-15.html.
-            switch (codePoint) {
-                case '_':
-                    codePoint = ' '; // Blank.
-                    break;
-                case '`':
-                    codePoint = '◆'; // Diamond.
-                    break;
-                case '0':
-                    codePoint = '█'; // Solid block;
-                    break;
-                case 'a':
-                    codePoint = '▒'; // Checker board.
-                    break;
-                case 'b':
-                    codePoint = '␉'; // Horizontal tab.
-                    break;
-                case 'c':
-                    codePoint = '␌'; // Form feed.
-                    break;
-                case 'd':
-                    codePoint = '\r'; // Carriage return.
-                    break;
-                case 'e':
-                    codePoint = '␊'; // Linefeed.
-                    break;
-                case 'f':
-                    codePoint = '°'; // Degree.
-                    break;
-                case 'g':
-                    codePoint = '±'; // Plus-minus.
-                    break;
-                case 'h':
-                    codePoint = '\n'; // Newline.
-                    break;
-                case 'i':
-                    codePoint = '␋'; // Vertical tab.
-                    break;
-                case 'j':
-                    codePoint = '┘'; // Lower right corner.
-                    break;
-                case 'k':
-                    codePoint = '┐'; // Upper right corner.
-                    break;
-                case 'l':
-                    codePoint = '┌'; // Upper left corner.
-                    break;
-                case 'm':
-                    codePoint = '└'; // Left left corner.
-                    break;
-                case 'n':
-                    codePoint = '┼'; // Crossing lines.
-                    break;
-                case 'o':
-                    codePoint = '⎺'; // Horizontal line - scan 1.
-                    break;
-                case 'p':
-                    codePoint = '⎻'; // Horizontal line - scan 3.
-                    break;
-                case 'q':
-                    codePoint = '─'; // Horizontal line - scan 5.
-                    break;
-                case 'r':
-                    codePoint = '⎼'; // Horizontal line - scan 7.
-                    break;
-                case 's':
-                    codePoint = '⎽'; // Horizontal line - scan 9.
-                    break;
-                case 't':
-                    codePoint = '├'; // T facing rightwards.
-                    break;
-                case 'u':
-                    codePoint = '┤'; // T facing leftwards.
-                    break;
-                case 'v':
-                    codePoint = '┴'; // T facing upwards.
-                    break;
-                case 'w':
-                    codePoint = '┬'; // T facing downwards.
-                    break;
-                case 'x':
-                    codePoint = '│'; // Vertical line.
-                    break;
-                case 'y':
-                    codePoint = '≤'; // Less than or equal to.
-                    break;
-                case 'z':
-                    codePoint = '≥'; // Greater than or equal to.
-                    break;
-                case '{':
-                    codePoint = 'π'; // Pi.
-                    break;
-                case '|':
-                    codePoint = '≠'; // Not equal to.
-                    break;
-                case '}':
-                    codePoint = '£'; // UK pound.
-                    break;
-                case '~':
-                    codePoint = '·'; // Centered dot.
-                    break;
-            }
+            codePoint = codePointChecker(codePoint);
         }
 
         final boolean autoWrap = isDecsetInternalBitSet(DECSET_BIT_AUTOWRAP);
@@ -2255,6 +2155,113 @@ public final class TerminalEmulator {
             mAboutToAutoWrap = (mCursorCol == mRightMargin - displayWidth);
 
         mCursorCol = Math.min(mCursorCol + displayWidth, mRightMargin - 1);
+    }
+
+    private String codePointChecker(int codePoint){
+        switch (codePoint) {
+            case '_':
+                codePoint = ' '; // Blank.
+                break;
+            case '`':
+                codePoint = '◆'; // Diamond.
+                break;
+            case '0':
+                codePoint = '█'; // Solid block;
+                break;
+            case 'a':
+                codePoint = '▒'; // Checker board.
+                break;
+            case 'b':
+                codePoint = '␉'; // Horizontal tab.
+                break;
+            case 'c':
+                codePoint = '␌'; // Form feed.
+                break;
+            case 'd':
+                codePoint = '\r'; // Carriage return.
+                break;
+            case 'e':
+                codePoint = '␊'; // Linefeed.
+                break;
+            case 'f':
+                codePoint = '°'; // Degree.
+                break;
+            case 'g':
+                codePoint = '±'; // Plus-minus.
+                break;
+            case 'h':
+                codePoint = '\n'; // Newline.
+                break;
+            case 'i':
+                codePoint = '␋'; // Vertical tab.
+                break;
+            case 'j':
+                codePoint = '┘'; // Lower right corner.
+                break;
+            case 'k':
+                codePoint = '┐'; // Upper right corner.
+                break;
+            case 'l':
+                codePoint = '┌'; // Upper left corner.
+                break;
+            case 'm':
+                codePoint = '└'; // Left left corner.
+                break;
+            case 'n':
+                codePoint = '┼'; // Crossing lines.
+                break;
+            case 'o':
+                codePoint = '⎺'; // Horizontal line - scan 1.
+                break;
+            case 'p':
+                codePoint = '⎻'; // Horizontal line - scan 3.
+                break;
+            case 'q':
+                codePoint = '─'; // Horizontal line - scan 5.
+                break;
+            case 'r':
+                codePoint = '⎼'; // Horizontal line - scan 7.
+                break;
+            case 's':
+                codePoint = '⎽'; // Horizontal line - scan 9.
+                break;
+            case 't':
+                codePoint = '├'; // T facing rightwards.
+                break;
+            case 'u':
+                codePoint = '┤'; // T facing leftwards.
+                break;
+            case 'v':
+                codePoint = '┴'; // T facing upwards.
+                break;
+            case 'w':
+                codePoint = '┬'; // T facing downwards.
+                break;
+            case 'x':
+                codePoint = '│'; // Vertical line.
+                break;
+            case 'y':
+                codePoint = '≤'; // Less than or equal to.
+                break;
+            case 'z':
+                codePoint = '≥'; // Greater than or equal to.
+                break;
+            case '{':
+                codePoint = 'π'; // Pi.
+                break;
+            case '|':
+                codePoint = '≠'; // Not equal to.
+                break;
+            case '}':
+                codePoint = '£'; // UK pound.
+                break;
+            case '~':
+                codePoint = '·'; // Centered dot.
+                break;
+        }
+
+        return codePoint;
+
     }
 
     private void setCursorRow(int row) {
