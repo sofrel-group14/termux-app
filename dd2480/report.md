@@ -361,7 +361,12 @@ Out of 64 branches, 47 were taken (~73%)
 
 # Report of new coverage:
 
-Insert *after* results here.
+```
+Manually instrumented function: GETCODE
+Branches not taken (IDs): 24, 31, 64,
+
+Out of 64 branches, 61 were taken (~95%)
+```
 
 ### Test cases added
 - Taqui added: https://github.com/sofrel-group14/termux-app/commit/74e3782bc8a06c7efb2824f7f18c4f404336ef37
@@ -385,3 +390,5 @@ See [this](https://docs.google.com/document/d/1hg5l8HvAqXFEaWk-7z9bNG7bG17T9uXoq
 ## Statement of contributions
 
 Telo added four tests, did some manual CCN calculations, did one of two refactorings, added instrumentation to one function, and added one refactoring plan. He is aiming for P+.
+
+Taqui added 2 tests, did manaual CCN calculations, added instrumentation to one function, and added one refactoring plan. He is aiming for P.
