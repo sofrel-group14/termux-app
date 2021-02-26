@@ -378,4 +378,4 @@ See [this](https://docs.google.com/document/d/1hg5l8HvAqXFEaWk-7z9bNG7bG17T9uXoq
 
 ## Statement of contributions
 
-Telo added four tests, did some manual CCN calculations, did one of two refactorings and added one refactoring plan. He is aiming for P+.
+Telo added four tests, did some manual CCN calculations, did one of two refactorings, added instrumentation to one function, and added one refactoring plan. He is aiming for P+.
