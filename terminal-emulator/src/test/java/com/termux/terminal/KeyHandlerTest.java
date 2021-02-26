@@ -134,7 +134,9 @@ public class KeyHandlerTest extends TestCase {
 
         //Telo
         assertKeysEquals("*", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_MULTIPLY, 0, false, false));
-        assertKeysEquals("+", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_ADD, 0, false, true));
+        assertKeysEquals("+", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_ADD, 0, false, false));
+        assertKeysEquals("\n", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_ENTER, 0, false, false));
+        assertKeysEquals("\033[3~", KeyHandler.getCode(KeyEvent.KEYCODE_FORWARD_DEL, 0, false, false));
 
         // Arrow keys (up/down/right/left):
         assertKeysEquals("\033[A", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_UP, 0, false, false));
