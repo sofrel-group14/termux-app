@@ -1,5 +1,7 @@
 package com.termux.terminal;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -130,8 +132,11 @@ public final class KeyHandler {
     }
 
     static String getCodeFromTermcap(String termcap, boolean cursorKeysApplication, boolean keypadApplication) {
+
         Integer keyCodeAndMod = TERMCAP_TO_KEYCODE.get(termcap);
-        if (keyCodeAndMod == null) return null;
+        if (keyCodeAndMod == null) {
+            return null;
+        }
         int keyCode = keyCodeAndMod;
         int keyMod = 0;
         if ((keyCode & KEYMOD_SHIFT) != 0) {
@@ -154,26 +159,34 @@ public final class KeyHandler {
     }
 
     public static String getCode(int keyCode, int keyMode, boolean cursorApp, boolean keypadApplication) {
+        System.err.println("TEST_COVERAGE_GETCODE:1");
         boolean numLockOn = (keyMode & KEYMOD_NUM_LOCK) != 0;
         keyMode &= ~KEYMOD_NUM_LOCK;
         switch (keyCode) {
             case KEYCODE_DPAD_CENTER:
+                System.err.println("TEST_COVERAGE_GETCODE:2");
                 return "\015";
 
             case KEYCODE_DPAD_UP:
+                System.err.println("TEST_COVERAGE_GETCODE:3");
                 return (keyMode == 0) ? (cursorApp ? "\033OA" : "\033[A") : transformForModifiers("\033[1", keyMode, 'A');
             case KEYCODE_DPAD_DOWN:
+                System.err.println("TEST_COVERAGE_GETCODE:4");
                 return (keyMode == 0) ? (cursorApp ? "\033OB" : "\033[B") : transformForModifiers("\033[1", keyMode, 'B');
             case KEYCODE_DPAD_RIGHT:
+                System.err.println("TEST_COVERAGE_GETCODE:5");
                 return (keyMode == 0) ? (cursorApp ? "\033OC" : "\033[C") : transformForModifiers("\033[1", keyMode, 'C');
             case KEYCODE_DPAD_LEFT:
+                System.err.println("TEST_COVERAGE_GETCODE:6");
                 return (keyMode == 0) ? (cursorApp ? "\033OD" : "\033[D") : transformForModifiers("\033[1", keyMode, 'D');
 
             case KEYCODE_MOVE_HOME:
+                System.err.println("TEST_COVERAGE_GETCODE:7");
                 // Note that KEYCODE_HOME is handled by the system and never delivered to applications.
                 // On a Logitech k810 keyboard KEYCODE_MOVE_HOME is sent by FN+LeftArrow.
                 return (keyMode == 0) ? (cursorApp ? "\033OH" : "\033[H") : transformForModifiers("\033[1", keyMode, 'H');
             case KEYCODE_MOVE_END:
+                System.err.println("TEST_COVERAGE_GETCODE:8");
                 return (keyMode == 0) ? (cursorApp ? "\033OF" : "\033[F") : transformForModifiers("\033[1", keyMode, 'F');
 
             // An xterm can send function keys F1 to F4 in two modes: vt100 compatible or
@@ -187,157 +200,218 @@ public final class KeyHandler {
             // <Home> t_kh <Esc>[7~ <xHome> <Esc>OH *<xHome>-xterm*
             // <End> t_@7 <Esc>[4~ <xEnd> <Esc>OF *<xEnd>-xterm*
             case KEYCODE_F1:
+                System.err.println("TEST_COVERAGE_GETCODE:9");
                 return (keyMode == 0) ? "\033OP" : transformForModifiers("\033[1", keyMode, 'P');
             case KEYCODE_F2:
+                System.err.println("TEST_COVERAGE_GETCODE:10");
                 return (keyMode == 0) ? "\033OQ" : transformForModifiers("\033[1", keyMode, 'Q');
             case KEYCODE_F3:
+                System.err.println("TEST_COVERAGE_GETCODE:11");
                 return (keyMode == 0) ? "\033OR" : transformForModifiers("\033[1", keyMode, 'R');
             case KEYCODE_F4:
+                System.err.println("TEST_COVERAGE_GETCODE:12");
                 return (keyMode == 0) ? "\033OS" : transformForModifiers("\033[1", keyMode, 'S');
             case KEYCODE_F5:
+                System.err.println("TEST_COVERAGE_GETCODE:13");
                 return transformForModifiers("\033[15", keyMode, '~');
             case KEYCODE_F6:
+                System.err.println("TEST_COVERAGE_GETCODE:14");
                 return transformForModifiers("\033[17", keyMode, '~');
             case KEYCODE_F7:
+                System.err.println("TEST_COVERAGE_GETCODE:15");
                 return transformForModifiers("\033[18", keyMode, '~');
             case KEYCODE_F8:
+                System.err.println("TEST_COVERAGE_GETCODE:16");
                 return transformForModifiers("\033[19", keyMode, '~');
             case KEYCODE_F9:
+                System.err.println("TEST_COVERAGE_GETCODE:17");
                 return transformForModifiers("\033[20", keyMode, '~');
             case KEYCODE_F10:
+                System.err.println("TEST_COVERAGE_GETCODE:18");
                 return transformForModifiers("\033[21", keyMode, '~');
             case KEYCODE_F11:
+                System.err.println("TEST_COVERAGE_GETCODE:19");
                 return transformForModifiers("\033[23", keyMode, '~');
             case KEYCODE_F12:
+                System.err.println("TEST_COVERAGE_GETCODE:20");
                 return transformForModifiers("\033[24", keyMode, '~');
 
             case KEYCODE_SYSRQ:
+                System.err.println("TEST_COVERAGE_GETCODE:21");
                 return "\033[32~"; // Sys Request / Print
             // Is this Scroll lock? case Cancel: return "\033[33~";
             case KEYCODE_BREAK:
+                System.err.println("TEST_COVERAGE_GETCODE:22");
                 return "\033[34~"; // Pause/Break
 
             case KEYCODE_ESCAPE:
             case KEYCODE_BACK:
+                System.err.println("TEST_COVERAGE_GETCODE:23");
                 return "\033";
 
             case KEYCODE_INSERT:
+                System.err.println("TEST_COVERAGE_GETCODE:24");
                 return transformForModifiers("\033[2", keyMode, '~');
             case KEYCODE_FORWARD_DEL:
+                System.err.println("TEST_COVERAGE_GETCODE:25");
                 return transformForModifiers("\033[3", keyMode, '~');
 
             case KEYCODE_PAGE_UP:
+                System.err.println("TEST_COVERAGE_GETCODE:26");
                 return "\033[5~";
             case KEYCODE_PAGE_DOWN:
+                System.err.println("TEST_COVERAGE_GETCODE:27");
                 return "\033[6~";
             case KEYCODE_DEL:
+                System.err.println("TEST_COVERAGE_GETCODE:28");
                 String prefix = ((keyMode & KEYMOD_ALT) == 0) ? "" : "\033";
                 // Just do what xterm and gnome-terminal does:
                 return prefix + (((keyMode & KEYMOD_CTRL) == 0) ? "\u007F" : "\u0008");
             case KEYCODE_NUM_LOCK:
+                System.err.println("TEST_COVERAGE_GETCODE:29");
                 if (keypadApplication) {
+                    System.err.println("TEST_COVERAGE_GETCODE:30");
                     return "\033OP";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:31");
                     return null;
                 }
             case KEYCODE_SPACE:
+                System.err.println("TEST_COVERAGE_GETCODE:32");
                 // If ctrl is not down, return null so that it goes through normal input processing (which may e.g. cause a
                 // combining accent to be written):
                 return ((keyMode & KEYMOD_CTRL) == 0) ? null : "\0";
             case KEYCODE_TAB:
+                System.err.println("TEST_COVERAGE_GETCODE:33");
                 // This is back-tab when shifted:
                 return (keyMode & KEYMOD_SHIFT) == 0 ? "\011" : "\033[Z";
             case KEYCODE_ENTER:
-                return ((keyMode & KEYMOD_ALT) == 0) ? "\r" : "\033\r";
+                if ((keyMode & KEYMOD_ALT) == 0) {
+                    System.err.println("TEST_COVERAGE_GETCODE:34");
+                    return "\r";
+                } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:35");
+                    return "\033\r";
+                }
+                // return ((keyMode & KEYMOD_ALT) == 0) ? "\r" : "\033\r";
 
             case KEYCODE_NUMPAD_ENTER:
+                System.err.println("TEST_COVERAGE_GETCODE:36");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'M') : "\n";
             case KEYCODE_NUMPAD_MULTIPLY:
+                System.err.println("TEST_COVERAGE_GETCODE:37");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'j') : "*";
             case KEYCODE_NUMPAD_ADD:
+                System.err.println("TEST_COVERAGE_GETCODE:38");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'k') : "+";
             case KEYCODE_NUMPAD_COMMA:
+                System.err.println("TEST_COVERAGE_GETCODE:39");
                 return ",";
             case KEYCODE_NUMPAD_DOT:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:40");
                     return keypadApplication ? "\033On" : ".";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:41");
                     // DELETE
                     return transformForModifiers("\033[3", keyMode, '~');
                 }
             case KEYCODE_NUMPAD_SUBTRACT:
+                System.err.println("TEST_COVERAGE_GETCODE:42");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'm') : "-";
             case KEYCODE_NUMPAD_DIVIDE:
+                System.err.println("TEST_COVERAGE_GETCODE:43");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'o') : "/";
             case KEYCODE_NUMPAD_0:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:44");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'p') : "0";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:45");
                     // INSERT
                     return transformForModifiers("\033[2", keyMode, '~');
                 }
             case KEYCODE_NUMPAD_1:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:46");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'q') : "1";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:47");
                     // END
                     return (keyMode == 0) ? (cursorApp ? "\033OF" : "\033[F") : transformForModifiers("\033[1", keyMode, 'F');
                 }
             case KEYCODE_NUMPAD_2:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:48");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'r') : "2";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:49");
                     // DOWN
                     return (keyMode == 0) ? (cursorApp ? "\033OB" : "\033[B") : transformForModifiers("\033[1", keyMode, 'B');
                 }
             case KEYCODE_NUMPAD_3:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:50");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 's') : "3";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:51");
                     // PGDN
                     return "\033[6~";
                 }
             case KEYCODE_NUMPAD_4:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:52");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 't') : "4";
                 } else {
                     // LEFT
+                    System.err.println("TEST_COVERAGE_GETCODE:53");
                     return (keyMode == 0) ? (cursorApp ? "\033OD" : "\033[D") : transformForModifiers("\033[1", keyMode, 'D');
                 }
             case KEYCODE_NUMPAD_5:
+                System.err.println("TEST_COVERAGE_GETCODE:54");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'u') : "5";
             case KEYCODE_NUMPAD_6:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:55");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'v') : "6";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:56");
                     // RIGHT
                     return (keyMode == 0) ? (cursorApp ? "\033OC" : "\033[C") : transformForModifiers("\033[1", keyMode, 'C');
                 }
             case KEYCODE_NUMPAD_7:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:57");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'w') : "7";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:58");
                     // HOME
                     return (keyMode == 0) ? (cursorApp ? "\033OH" : "\033[H") : transformForModifiers("\033[1", keyMode, 'H');
                 }
             case KEYCODE_NUMPAD_8:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:59");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'x') : "8";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:60");
                     // UP
                     return (keyMode == 0) ? (cursorApp ? "\033OA" : "\033[A") : transformForModifiers("\033[1", keyMode, 'A');
                 }
             case KEYCODE_NUMPAD_9:
                 if (numLockOn) {
+                    System.err.println("TEST_COVERAGE_GETCODE:61");
                     return keypadApplication ? transformForModifiers("\033O", keyMode, 'y') : "9";
                 } else {
+                    System.err.println("TEST_COVERAGE_GETCODE:62");
                     // PGUP
                     return "\033[5~";
                 }
             case KEYCODE_NUMPAD_EQUALS:
+                System.err.println("TEST_COVERAGE_GETCODE:63");
                 return keypadApplication ? transformForModifiers("\033O", keyMode, 'X') : "=";
         }
 
+        System.err.println("TEST_COVERAGE_GETCODE:64");
         return null;
     }
 
