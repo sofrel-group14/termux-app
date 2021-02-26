@@ -2148,7 +2148,7 @@ public final class TerminalEmulator {
         mCursorCol = Math.min(mCursorCol + displayWidth, mRightMargin - 1);
     }
 
-    private String codePointChecker(int codePoint){
+    private int codePointChecker(int codePoint){
         switch (codePoint) {
             case '_':
                 codePoint = ' '; // Blank.
