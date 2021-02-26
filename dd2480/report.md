@@ -221,6 +221,8 @@ For example, by moving the switch statement in the default case at line 539 into
 #### 5. Refactoring TerminalEmulator::emitCodePoint
 `emitCodePoint` is one of the functions with the highest CCN, as can be seen in [Complexity](#complexity). There are a myriad of different methods you can utilize to reduce the CCN. In this case, a simple but effective one will look at the switch statement. This switch statement has 33 cases. By moving the switch statement into a separate function, would around halve the CCN. Furthermore, this specific statement lends itself to extraction to a hashmap structure quite well. This would further decrease the complexity of the code.
 
+[Refactoring here.](https://github.com/sofrel-group14/termux-app/pull/15/commits/a744eabc0534d943bed340af3230197681d3c8b7)
+
 
 ## Coverage
 
