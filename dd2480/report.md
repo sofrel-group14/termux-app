@@ -366,7 +366,7 @@ Insert *after* results here.
 - Axel added: https://github.com/sofrel-group14/termux-app/commit/ed2142ddaff719dde418aed2e0f674ab38462046 (see the file KeyHandlerTest.java at the bottom)
 - Andreas added: https://github.com/sofrel-group14/termux-app/commit/032e4c1aa3655c1270544d143a317b09da4e7bf4
 - Yannis added: https://github.com/sofrel-group14/termux-app/commit/4448012dbf04a7dc2e3afa433f9bd04a78c20373
-- Telo added: 
+- Telo added: https://github.com/sofrel-group14/termux-app/pull/8/commits/8cbd5cdc28f0c707280e19ec1d176a3babe5ec68
 
 ## Self-assessment: Way of working
 
