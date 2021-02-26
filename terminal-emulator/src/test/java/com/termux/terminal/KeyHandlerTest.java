@@ -132,81 +132,8 @@ public class KeyHandlerTest extends TestCase {
         assertKeysEquals("\033[32~", KeyHandler.getCode(KeyEvent.KEYCODE_SYSRQ, 0, false, false));
         assertKeysEquals("\033[34~", KeyHandler.getCode(KeyEvent.KEYCODE_BREAK, 0, false, false));
 
-        //Telo
-        assertKeysEquals("*", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_MULTIPLY, 0, false, false));
-        assertKeysEquals("+", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_ADD, 0, false, false));
-        assertKeysEquals("\n", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_ENTER, 0, false, false));
-        assertKeysEquals("\033[3~", KeyHandler.getCode(KeyEvent.KEYCODE_FORWARD_DEL, 0, false, false));
-
-        // Arrow keys (up/down/right/left):
-        assertKeysEquals("\033[A", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_UP, 0, false, false));
-        assertKeysEquals("\033[B", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_DOWN, 0, false, false));
-        assertKeysEquals("\033[C", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_RIGHT, 0, false, false));
-        assertKeysEquals("\033[D", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_LEFT, 0, false, false));
-        // .. shifted:
-        assertKeysEquals("\033[1;2A", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_UP, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[1;2B", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_DOWN, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[1;2C", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_RIGHT, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[1;2D", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_LEFT, KeyHandler.KEYMOD_SHIFT, false, false));
-        // .. ctrl:ed:
-        assertKeysEquals("\033[1;5A", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_UP, KeyHandler.KEYMOD_CTRL, false, false));
-        assertKeysEquals("\033[1;5B", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_DOWN, KeyHandler.KEYMOD_CTRL, false, false));
-        assertKeysEquals("\033[1;5C", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_RIGHT, KeyHandler.KEYMOD_CTRL, false, false));
-        assertKeysEquals("\033[1;5D", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_LEFT, KeyHandler.KEYMOD_CTRL, false, false));
-        // .. ctrl:ed and shifted:
-        int mod = KeyHandler.KEYMOD_CTRL | KeyHandler.KEYMOD_SHIFT;
-        assertKeysEquals("\033[1;6A", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_UP, mod, false, false));
-        assertKeysEquals("\033[1;6B", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_DOWN, mod, false, false));
-        assertKeysEquals("\033[1;6C", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_RIGHT, mod, false, false));
-        assertKeysEquals("\033[1;6D", KeyHandler.getCode(KeyEvent.KEYCODE_DPAD_LEFT, mod, false, false));
-
-        // Home/end keys:
-        assertKeysEquals("\033[H", KeyHandler.getCode(KeyEvent.KEYCODE_MOVE_HOME, 0, false, false));
-        assertKeysEquals("\033[F", KeyHandler.getCode(KeyEvent.KEYCODE_MOVE_END, 0, false, false));
-        // ... shifted:
-        assertKeysEquals("\033[1;2H", KeyHandler.getCode(KeyEvent.KEYCODE_MOVE_HOME, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[1;2F", KeyHandler.getCode(KeyEvent.KEYCODE_MOVE_END, KeyHandler.KEYMOD_SHIFT, false, false));
-
-        // Function keys F1-F12:
-        assertKeysEquals("\033OP", KeyHandler.getCode(KeyEvent.KEYCODE_F1, 0, false, false));
-        assertKeysEquals("\033OQ", KeyHandler.getCode(KeyEvent.KEYCODE_F2, 0, false, false));
-        assertKeysEquals("\033OR", KeyHandler.getCode(KeyEvent.KEYCODE_F3, 0, false, false));
-        assertKeysEquals("\033OS", KeyHandler.getCode(KeyEvent.KEYCODE_F4, 0, false, false));
-        assertKeysEquals("\033[15~", KeyHandler.getCode(KeyEvent.KEYCODE_F5, 0, false, false));
-        assertKeysEquals("\033[17~", KeyHandler.getCode(KeyEvent.KEYCODE_F6, 0, false, false));
-        assertKeysEquals("\033[18~", KeyHandler.getCode(KeyEvent.KEYCODE_F7, 0, false, false));
-        assertKeysEquals("\033[19~", KeyHandler.getCode(KeyEvent.KEYCODE_F8, 0, false, false));
-        assertKeysEquals("\033[20~", KeyHandler.getCode(KeyEvent.KEYCODE_F9, 0, false, false));
-        assertKeysEquals("\033[21~", KeyHandler.getCode(KeyEvent.KEYCODE_F10, 0, false, false));
-        assertKeysEquals("\033[23~", KeyHandler.getCode(KeyEvent.KEYCODE_F11, 0, false, false));
-        assertKeysEquals("\033[24~", KeyHandler.getCode(KeyEvent.KEYCODE_F12, 0, false, false));
-        // Function keys F13-F24 (same as shifted F1-F12):
-        assertKeysEquals("\033[1;2P", KeyHandler.getCode(KeyEvent.KEYCODE_F1, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[1;2Q", KeyHandler.getCode(KeyEvent.KEYCODE_F2, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[1;2R", KeyHandler.getCode(KeyEvent.KEYCODE_F3, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[1;2S", KeyHandler.getCode(KeyEvent.KEYCODE_F4, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[15;2~", KeyHandler.getCode(KeyEvent.KEYCODE_F5, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[17;2~", KeyHandler.getCode(KeyEvent.KEYCODE_F6, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[18;2~", KeyHandler.getCode(KeyEvent.KEYCODE_F7, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[19;2~", KeyHandler.getCode(KeyEvent.KEYCODE_F8, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[20;2~", KeyHandler.getCode(KeyEvent.KEYCODE_F9, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[21;2~", KeyHandler.getCode(KeyEvent.KEYCODE_F10, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[23;2~", KeyHandler.getCode(KeyEvent.KEYCODE_F11, KeyHandler.KEYMOD_SHIFT, false, false));
-        assertKeysEquals("\033[24;2~", KeyHandler.getCode(KeyEvent.KEYCODE_F12, KeyHandler.KEYMOD_SHIFT, false, false));
-
-        assertKeysEquals("0", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_0, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-        assertKeysEquals("1", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_1, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-        assertKeysEquals("2", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_2, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-        assertKeysEquals("3", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_3, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-        assertKeysEquals("4", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_4, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-        assertKeysEquals("5", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_5, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-        assertKeysEquals("6", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_6, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-        assertKeysEquals("7", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_7, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-        assertKeysEquals("8", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_8, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-        assertKeysEquals("9", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_9, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-        assertKeysEquals(",", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_COMMA, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-        assertKeysEquals(".", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_DOT, KeyHandler.KEYMOD_NUM_LOCK, false, false));
-
+      
+      
         assertKeysEquals("\033[2~", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_0, 0, false, false));
         assertKeysEquals("\033[F", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_1, 0, false, false));
         assertKeysEquals("\033[B", KeyHandler.getCode(KeyEvent.KEYCODE_NUMPAD_2, 0, false, false));
