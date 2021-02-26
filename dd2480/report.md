@@ -392,3 +392,5 @@ See [this](https://docs.google.com/document/d/1hg5l8HvAqXFEaWk-7z9bNG7bG17T9uXoq
 Telo added four tests, did some manual CCN calculations, did one of two refactorings, added instrumentation to one function, and added one refactoring plan. He is aiming for P+.
 
 Taqui added 2 tests, did manaual CCN calculations, added instrumentation to one function, and added one refactoring plan. He is aiming for P.
+
+Axel added 2 tests, did manual CCN calulations, added instrumentation to one function, added one refactoring plan (4). Is aiming for P
