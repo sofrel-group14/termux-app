@@ -396,3 +396,5 @@ Taqui added 2 tests, did manaual CCN calculations, added instrumentation to one 
 Axel added 2 tests, did manual CCN calulations, added instrumentation to one function, added one refactoring plan (4). Is aiming for P
 
 Andreas added 2 tests, did manual CCN calculations, added instrumentation to one function, added one refactoring plan, and is aiming for P.
+
+Yannis added 4 test, did manual CCN calculations, added instrumentation to one function, made a refactoring plan and executed it. He is aiming for P+.
